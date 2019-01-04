@@ -20,4 +20,11 @@
 - redis服务端缓存
 - Mongoose来管理Mongodb数据库
 
+## 项目开发
+
+### 项目搭建
+
+1. 安装[Vue CLI3](https://cli.vuejs.org/zh/)脚手架 `npm i -g @vue/cli`并创建项目`vue creat vue-koa2-takeway`
+2. 
+
 ## 项目总结和感想
