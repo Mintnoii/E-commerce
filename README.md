@@ -1,5 +1,5 @@
-##  Vue-Koa2-Takeway
-一个涵盖了Vue、Nuxt.js、Koa2、Mongodb、Redis等众多技术的外卖项目。
+##  E-commerce
+一个涵盖了Vue、Nuxt.js、Koa2、Mongodb、Redis等众多前后端技术并结合element-ui的电商项目。
 
 ## 项目简介
 **主要功能：**
