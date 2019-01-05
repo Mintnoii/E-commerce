@@ -14,7 +14,7 @@
 **技术内容：**
 
 - Vue 2.5语法
-- Vue CLI3脚手架
+- [Vue CLI3](https://cli.vuejs.org/zh/)脚手架
 - Vuex实现数据和状态的同步
 - Nuxt.js和Koa2实现SSR
 - redis服务端缓存
@@ -22,9 +22,27 @@
 
 ## 项目开发
 
-### 项目搭建
+### 环境准备
 
-1. 安装[Vue CLI3](https://cli.vuejs.org/zh/)脚手架 `npm i -g @vue/cli`并创建项目`vue creat vue-koa2-takeway`
-2. 
+node v10.14.0
+
+Vue 2.5.21
+
+npm v6.5.0
+
+webpack v4.28.3
+
+Nuxt v2.3.4
+
+### 项目安装
+
+### 辅助工具安装
+
+### 配置改装
+
+1.  `npm i -g @vue/cli`
+2. `vue creat E-commerce`
+3. `cd E-commerce `
+4. `npm run serve`
 
 ## 项目总结和感想
