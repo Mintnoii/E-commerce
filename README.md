@@ -36,6 +36,9 @@ Nuxt v2.3.4
 
 ### 项目安装
 
+1. `npm install -g npx`
+2. `npx creat-nuxt-app project-name`
+
 ### 辅助工具安装
 
 ### 配置改装
