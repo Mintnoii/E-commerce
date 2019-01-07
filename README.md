@@ -37,7 +37,7 @@ Nuxt v2.3.4
 ### 项目安装
 
 1. `npm install -g npx`
-2. `npx creat-nuxt-app project-name`
+2. `npx creat-nuxt-app E-commerce`
 
 ### 辅助工具安装
 
@@ -47,5 +47,13 @@ Nuxt v2.3.4
 2. `vue creat E-commerce`
 3. `cd E-commerce `
 4. `npm run serve`
+
+### 开发首页
+
+### 登录注册
+
+### Search搜索
+
+
 
 ## 项目总结和感想
