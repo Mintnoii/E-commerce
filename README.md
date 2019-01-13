@@ -41,12 +41,10 @@ Nuxt v2.3.4
 
 ### 辅助工具安装
 
-- 安装mongodb数据库
-- 安装Robo 3T
+- 安装mongodb数据库 [文档](https://mongoose.shujuwajue.com/guide/models.html)
+- 安装Robo 3T [Download](https://robomongo.org/download)
 
-
-
-### 配置改装
+### 开始项目
 
 1.  `npm i -g @vue/cli`
 2. `vue creat E-commerce`
