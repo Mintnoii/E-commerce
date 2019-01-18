@@ -67,6 +67,8 @@ module.exports = {
         })
       }
     },
-    cache: true
+    // https://github.com/vuejs/vue-style-loader/pull/30
+    // https://github.com/vuejs/vue-style-loader/pull/3804
+    cache: false
   }
 }

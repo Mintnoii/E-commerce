@@ -1,4 +1,5 @@
-##  E-commerce
+# E-commerce
+
 一个涵盖了Vue、Nuxt.js、Koa2、Mongodb、Redis等众多前后端技术并结合element-ui的电商项目。
 
 ## 项目简介
@@ -75,3 +76,22 @@ Nuxt v2.3.4
 ### Search搜索
 
 ## 项目总结和感想
+
+## Build Setup
+
+```bash
+# install dependencies
+$ yarn install
+
+# serve with hot reload at localhost:3000
+$ yarn run dev
+
+# build for production and launch server
+$ yarn run build
+$ yarn start
+
+# generate static project
+$ yarn run generate
+```
+
+For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
