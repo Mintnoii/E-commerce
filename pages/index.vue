@@ -5,7 +5,7 @@
         <emenu/>
       </el-col>
       <el-col :span="19">
-        右边的不同banner
+        <life/>
       </el-col>
     </el-row>
     <el-row >
@@ -18,9 +18,11 @@
 
 <script>
 import Emenu from '@/components/index/menu.vue'
+import Life from '@/components/index/life.vue'
 export default {
   components: {
-    Emenu
+    Emenu,
+    Life
   }
 }
 </script>
