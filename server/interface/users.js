@@ -122,7 +122,7 @@ router.post('/verify', async (ctx, next) => {
     from: `"认证邮件" <${Email.smtp.user}>`,
     to: ko.email,
     subject: '味心美食注册码',
-    html: `您在味心美食中注册，您的邀请码是${ko.code}`
+    html: `人间烟火味，最抚凡人心。欢迎您注册味心美食账号，您本次的注册邀请码是${ko.code}`
   }
   await transporter.sendMail(mailOptions, (error, info) => {
     if (error) {

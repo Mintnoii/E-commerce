@@ -77,6 +77,8 @@
 </template>
 
 <script>
+// 前端加密库
+import CryptoJS from 'crypto-js'
 export default {
   layout: "blank",
   data() {
@@ -118,8 +120,81 @@ export default {
     }
   },
   methods: {
-    sendMsg: function(){},
-    register: function(){}
+    // nuxt中的modules配置了'@nuxtjs/axios' 所以可以直接在实例上调用$axios
+    sendMsg: function () {
+      const self = this;
+      let namePass
+      let emailPass
+      // 上一次发送验证码的定时器
+      if (self.timerid) {
+        return false
+      }
+      this.$refs['ruleForm'].validateField('name', (valid) => {
+        // valid有值说明没通过验证
+        namePass = valid
+      })
+      self.statusMsg = ''
+      if (namePass) {
+        return false
+      }
+      this.$refs['ruleForm'].validateField('email', (valid) => {
+        emailPass = valid
+      })
+      // 用户名和邮箱都通过验证
+      if (!namePass && !emailPass) {
+        // 接口前缀/users
+        self.$axios.post('/users/verify', {
+          // 对中文进行编码
+          username: encodeURIComponent(self.ruleForm.name),
+          email: self.ruleForm.email
+        }).then(({
+          status,
+          data
+        }) => {
+          if (status === 200 && data && data.code === 0) {
+            let count = 8;
+            self.timerid = setInterval(function () {
+              self.statusMsg = `验证码已发送,剩余${--count}秒`
+              if (count === 0) {
+                self.statusMsg = `验证码1分钟内有效`
+                clearInterval(self.timerid)
+              }
+            }, 1000)
+          } else {
+            self.statusMsg = data.msg
+          }
+        })
+      }
+    },
+    register: function () {
+      let self = this;
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          self.$axios.post('/users/signup', {
+            username: window.encodeURIComponent(self.ruleForm.name),
+            password: CryptoJS.MD5(self.ruleForm.pwd).toString(),
+            email: self.ruleForm.email,
+            code: self.ruleForm.code
+          }).then(({
+            status,
+            data
+          }) => {
+            if (status === 200) { 
+              if (data && data.code === 0) {
+                location.href = '/login'
+              } else {
+                self.error = data.msg
+              }
+            } else {
+              self.error = `服务器出错，错误码:${status}`
+            }
+            setTimeout(function () {
+              self.error = ''
+            }, 1500)
+          })
+        }
+      })
+    }
   },
 }
 </script>
