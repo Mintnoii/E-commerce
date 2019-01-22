@@ -1288,20 +1288,20 @@ axios-retry@^3.0.1:
   dependencies:
     is-retry-allowed "^1.1.0"
 
-axios@0.18.0:
-  version "0.18.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
-  integrity sha1-MtU+SFHv3AoRmTts0AB4nXDAUQI=
-  dependencies:
-    follow-redirects "^1.3.0"
-    is-buffer "^1.1.5"
-
 axios@^0.17.1:
   version "0.17.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.17.1.tgz#2d8e3e5d0bdbd7327f91bc814f5c57660f81824d"
   integrity sha1-LY4+XQvb1zJ/kbyBT1xXZg+Bgk0=
   dependencies:
     follow-redirects "^1.2.5"
+    is-buffer "^1.1.5"
+
+axios@^0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
+  integrity sha1-MtU+SFHv3AoRmTts0AB4nXDAUQI=
+  dependencies:
+    follow-redirects "^1.3.0"
     is-buffer "^1.1.5"
 
 babel-code-frame@^6.16.0, babel-code-frame@^6.26.0:
@@ -1945,11 +1945,6 @@ binary-extensions@^1.0.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.12.0.tgz#c2d780f53d45bba8317a8902d4ceeaf3a6385b14"
   integrity sha512-DYWGk01lDcxeS/K9IHPGWfT8PsJmbXRtRd2Sx72Tnb8pcYZQFF1oSDb8hJtS1vhp212q1Rzi5dUf9+nq0o9UIg==
-
-bindings@^1.2.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/bindings/-/bindings-1.3.1.tgz#21fc7c6d67c18516ec5aaa2815b145ff77b26ea5"
-  integrity sha512-i47mqjF9UbjxJhxGf+pZ6kSxrnI3wBLlnGI2ArWJ4r0VrvDS7ZYXkprq/pLaBWYq4GM0r4zdHY+NNRqEMU7uew==
 
 block-stream@*:
   version "0.0.9"
@@ -4353,14 +4348,6 @@ hex-color-regex@^1.1.0:
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
 
-hiredis@~0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/hiredis/-/hiredis-0.5.0.tgz#db03a98becd7003d13c260043aceecfacdf59b87"
-  integrity sha1-2wOpi+zXAD0TwmAEOs7s+s31m4c=
-  dependencies:
-    bindings "^1.2.1"
-    nan "^2.3.4"
-
 hmac-drbg@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hmac-drbg/-/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"
@@ -5192,7 +5179,7 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
   integrity sha512-s5kLOcnH0XqDO+FvuaLX8DDjZ18CGFk7VygH40QoKPUQhW4e2rvM0rwUq0t8IQDOwYSeLK01U90OjzBTme2QqA==
 
-koa-bodyparser@4.2.1:
+koa-bodyparser@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/koa-bodyparser/-/koa-bodyparser-4.2.1.tgz#4d7dacb5e6db1106649b595d9e5ccb158b6f3b29"
   integrity sha512-UIjPAlMZfNYDDe+4zBaOAUKYqkwAGcIU6r2ARf1UOXPAlfennQys5IiShaVeNf7KkVBlf88f2LeLvBFvKylttw==
@@ -5220,7 +5207,7 @@ koa-convert@^1.2.0:
     co "^4.6.0"
     koa-compose "^3.0.0"
 
-koa-generic-session@2.0.1:
+koa-generic-session@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/koa-generic-session/-/koa-generic-session-2.0.1.tgz#d6bdf4f288b2f553065d049a630c28c76d877ccf"
   integrity sha512-yw+sG7PdfIX8HBFMjvpmnQWoGHpo07BgMAem3PMM8UEKO9jaZeJu5ywtatYduWGrc5XfGu7Tgw8zQEcdSCunxw==
@@ -5236,7 +5223,7 @@ koa-is-json@1, koa-is-json@^1.0.0:
   resolved "https://registry.yarnpkg.com/koa-is-json/-/koa-is-json-1.0.0.tgz#273c07edcdcb8df6a2c1ab7d59ee76491451ec14"
   integrity sha1-JzwH7c3Ljfaiwat9We52SRRR7BQ=
 
-koa-json@2.0.2:
+koa-json@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/koa-json/-/koa-json-2.0.2.tgz#36af14e6ea1f5d646d7c44a285701c6f85a4fde4"
   integrity sha1-Nq8U5uofXWRtfESihXAcb4Wk/eQ=
@@ -5244,26 +5231,24 @@ koa-json@2.0.2:
     koa-is-json "1"
     streaming-json-stringify "3"
 
-koa-passport@4.1.1:
+koa-passport@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/koa-passport/-/koa-passport-4.1.1.tgz#4ad1f5296c933244a7a2591b60c724c5f8bf842a"
   integrity sha512-SJrAAWabeXzQC78ABUTCGM5OpxPKFl+R41q75wMpcl+tpmo+UFGXaId966cN5cBK/lAbpGsTGimhyefOKL3bbg==
   dependencies:
     passport "^0.4.0"
 
-koa-redis@3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/koa-redis/-/koa-redis-3.1.2.tgz#5b9c8c63f06b44878d9b27ab8f90e3f4d11e77bb"
-  integrity sha512-/PgYfivYQ0eIH9I9Io5K01yHBIqAWm5ZhTdun1H9iZ8tyufWGBYldogvdFfCqPFXcWWquJlsCRoEAFZ/ciTAcg==
+koa-redis@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/koa-redis/-/koa-redis-3.1.3.tgz#b1015bc243d081226737a60f73c46322a6fb5f78"
+  integrity sha512-dahipG78zLfMtLQK5zcDaFt3FJOC0dNkIuUoWH/aqU0cO2S+K6jqJIexS1CF4BsPDDr+b/wxkECFAfs508PoWQ==
   dependencies:
     co-redis "^2.1.1"
     co-wrap-all "^1.0.0"
     debug "^3.1.0"
     redis "^2.8.0"
-  optionalDependencies:
-    hiredis "~0.5.0"
 
-koa-router@7.4.0:
+koa-router@^7.4.0:
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/koa-router/-/koa-router-7.4.0.tgz#aee1f7adc02d5cb31d7d67465c9eacc825e8c5e0"
   integrity sha512-IWhaDXeAnfDBEpWS6hkGdZ1ablgr6Q6pGdXCyK38RbzuH4LkUOpPqPw+3f8l8aTDrQmBQ7xJc0bs2yV4dzcO+g==
@@ -5956,7 +5941,7 @@ mute-stream@0.0.5:
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.5.tgz#8fbfabb0a98a253d3184331f9e8deb7372fac6c0"
   integrity sha1-j7+rsKmKJT0xhDMfno3rc3L6xsA=
 
-nan@^2.10.0, nan@^2.3.4, nan@^2.9.2:
+nan@^2.10.0, nan@^2.9.2:
   version "2.12.1"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.12.1.tgz#7b1aa193e9aa86057e3c7bbd0ac448e770925552"
   integrity sha512-JY7V6lRkStKcKTvHO5NVSQRv+RV+FIL5pvDoLiAtSL9pKlC5x9PKQcZDsq7m4FO4d57mkhC6Z+QhAh3Jdk5JFw==
@@ -6126,10 +6111,10 @@ node-sass@4.9.3:
     stdout-stream "^1.4.0"
     "true-case-path" "^1.0.2"
 
-nodemailer@4.6.8:
-  version "4.6.8"
-  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-4.6.8.tgz#f82fb407828bf2e76d92acc34b823d83e774f89c"
-  integrity sha512-A3s7EM/426OBIZbLHXq2KkgvmKbn2Xga4m4G+ZUA4IaZvG8PcZXrFh+2E4VaS2o+emhuUVRnzKN2YmpkXQ9qwA==
+nodemailer@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-5.1.1.tgz#0c48d1ecab02e86d9ff6c620ee75ed944b763505"
+  integrity sha512-hKGCoeNdFL2W7S76J/Oucbw0/qRlfG815tENdhzcqTpSjKgAN91mFOqU2lQUflRRxFM7iZvCyaFcAR9noc/CqQ==
 
 nodemon@1.11.0:
   version "1.11.0"
@@ -6578,7 +6563,7 @@ pascalcase@^0.1.1:
   resolved "https://registry.yarnpkg.com/pascalcase/-/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
   integrity sha1-s2PlXoAGym/iF4TS2yK9FdeRfxQ=
 
-passport-local@1.0.0:
+passport-local@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/passport-local/-/passport-local-1.0.0.tgz#1fe63268c92e75606626437e3b906662c15ba6ee"
   integrity sha1-H+YyaMkudWBmJkN+O5BmYsFbpu4=
