@@ -5,7 +5,7 @@
       @mouseleave="mouseleave">
       <dt>全部分类</dt>
       <dd 
-        v-for="(item, idx) in menu" 
+        v-for="(item, idx) in $store.state.home.menu" 
         :key="idx"
         @mouseenter="enter">
         <i :class="item.type"/>{{ item.name }}<span class="arrow"/>
@@ -63,7 +63,7 @@ export default {
   computed: {
     curdetail: function() {
       // 根据判断当前鼠标hover的kind和每个菜单项的type将应该显示的菜单项过滤出来
-      return this.menu.filter((item) => item.type === this.kind)[0]
+      return this.$store.state.home.menu.filter((item) => item.type === this.kind)[0]
     }
   },
     methods:{
