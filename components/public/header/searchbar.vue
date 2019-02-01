@@ -28,8 +28,8 @@
               v-if="isHotPlace">
               <dt>热门搜索</dt>
               <dd 
-                v-for="(item, idx) in hotPlace"
-                :key="idx">{{ item }}</dd>
+                v-for="(item, idx) in $store.state.home.hotPlace.slice(0, 5)"
+                :key="idx">{{ item.name }}</dd>
             </dl>
             <dl
               v-if="isSearchList"
@@ -40,10 +40,10 @@
             </dl>
           </div>
           <p class="suggest">
-            <a href>外滩</a>
-            <a href>五角场</a>
-            <a href>外滩</a>
-            <a href>五角场</a>
+            <a 
+              href="#" 
+              v-for="(item, idx) in $store.state.home.hotPlace.slice(0, 5)"
+              :key="idx">{{ item.name }}></a>
           </p>
           <ul class="nav">
             <li><nuxt-link
@@ -93,7 +93,7 @@ export default {
     return {
       search:'',
       isFocus:false,
-      hotPlace:['火锅', '麻辣烫', '烤鸭'],
+      hotPlace:[],
       searchList:[]
     }
   },
