@@ -36,7 +36,7 @@
               class="searchList">
               <dd
                 v-for="(item, idx) in searchList"
-                :key="idx">{{ item }}</dd>
+                :key="idx">{{ item.name }}</dd>
             </dl>
           </div>
           <p class="suggest">
@@ -87,13 +87,14 @@
 </template>
 
 <script>
+import _ from 'lodash'
 export default {
   data(){
     return {
       search:'',
       isFocus:false,
       hotPlace:['火锅', '麻辣烫', '烤鸭'],
-      searchList:['热干面', '豫园', '烤鸭']
+      searchList:[]
     }
   },
   // 根据判断搜索框是否聚焦isFocus和是否有输入值search来决定模板显示
@@ -116,9 +117,18 @@ export default {
       },200)
     },
     // 监听input输入的内容，用来更新推荐列表
-    input: function() {
-      console.log('input')
-    }
+    input:_.debounce(async function(){
+      let self=this;
+      let city=self.$store.state.geo.position.city.replace('市','')
+      self.searchList=[]
+      let {status,data:{top}}=await self.$axios.get('/search/top',{
+        params:{
+          input:self.search,
+          city
+        }
+      })
+      self.searchList=top.slice(0,10)
+    },300)
   }
 }
 </script>
