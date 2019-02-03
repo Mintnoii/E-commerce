@@ -68,8 +68,37 @@ Nuxt v2.3.4
 - 用户数据和状态
 
 **3. 数据结构设计**
+mongodb命令行导入数据：
+
+`mongoimport -d ecommerce(数据库) -c areas(数据表) areas.dat(数据源)`
 
 **4. 接口设计**
+
+**城市服务类接口Geo**
+
+> /geo/getPosition		根据ip定位当前城市
+>
+> /geo/province		获取所有省份
+>
+> /geo/province/:id		获取指定id的省份
+>
+> /geo/city			获取所城市
+>
+> /geo/hotCity			获取热门城市数据
+>
+> /geo/menu			获取菜单项数据
+
+**查询类接口Search**
+
+> /search/top					搜索框查询结果数据
+>
+> /search/resultsByKeywords	根据关键词检索相关列表
+>
+> /search/hotPlace				热门搜索数据
+>
+> /search/products				产品列表数据
+>
+> /search/product/:id			根据产品的id获取详情数据
 
 ### 登录注册
 
