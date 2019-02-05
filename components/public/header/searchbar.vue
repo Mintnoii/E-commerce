@@ -28,7 +28,7 @@
               v-if="isHotPlace">
               <dt>热门搜索</dt>
               <dd 
-                v-for="(item, idx) in $store.state.home.hotPlace.slice(0, 5)"
+                v-for="(item, idx) in $store.state.home.hotPlace.slice(0, 4)"
                 :key="idx">{{ item.name }}</dd>
             </dl>
             <dl
@@ -43,7 +43,7 @@
             <a 
               href="#" 
               v-for="(item, idx) in $store.state.home.hotPlace.slice(0, 5)"
-              :key="idx">{{ item.name }}></a>
+              :key="idx">{{ item.name }}</a>
           </p>
           <ul class="nav">
             <li><nuxt-link

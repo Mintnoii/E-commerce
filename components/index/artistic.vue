@@ -49,38 +49,8 @@ export default {
     return {
       kind: 'all',
       list: {
-        all: [{
-          title: 'all000',
-          img: 'https://p1.meituan.net/phoenix/27086e2f3f1f1ebbfd81d4d7101c6676699122.jpg@1440w_962h_1e_1c_1l',
-          pos: '外滩',
-          price: 235
-        },{
-          title: 'all001',
-          img: 'https://p1.meituan.net/phoenix/27086e2f3f1f1ebbfd81d4d7101c6676699122.jpg@1440w_962h_1e_1c_1l',
-          pos: '外滩',
-          price: 253
-        },{
-          title: 'all002',
-          img: 'https://p1.meituan.net/phoenix/27086e2f3f1f1ebbfd81d4d7101c6676699122.jpg@1440w_962h_1e_1c_1l',
-          pos: '外滩',
-          price: 532
-        }],
-        part: [{
-          title: 'all000',
-          img: 'https://p1.meituan.net/phoenix/27086e2f3f1f1ebbfd81d4d7101c6676699122.jpg@1440w_962h_1e_1c_1l',
-          pos: '外滩',
-          price: 244
-        },{
-          title: 'all001',
-          img: 'https://p1.meituan.net/phoenix/27086e2f3f1f1ebbfd81d4d7101c6676699122.jpg@1440w_962h_1e_1c_1l',
-          pos: '外滩',
-          price: 236
-        },{
-          title: 'all002',
-          img: 'https://p1.meituan.net/phoenix/27086e2f3f1f1ebbfd81d4d7101c6676699122.jpg@1440w_962h_1e_1c_1l',
-          pos: '外滩',
-          price: 275
-        }],
+        all: [],
+        part: [],
         spa: [],
         movie: [],
         travel: []
@@ -92,15 +62,59 @@ export default {
       return this.list[this.kind]
     }
   },
+  // 页面加载完成后就要请求一次数据 keyword默认为 景点
+  async mounted(){
+    let self=this;
+    let {status,data:{count,pois}}=await self.$axios.get('/search/resultsByKeywords',{
+      params:{
+        keyword:'景点',
+        city:self.$store.state.geo.position.city
+      }
+    })
+    if(status===200&&count>0){
+      let r= pois.filter(item=>item.photos.length).map(item=>{
+        return {
+          title:item.name,
+          pos:item.type.split(';')[0],
+          price:item.biz_ext.cost||'暂无',
+          img:item.photos[0].url,
+          url:'//abc.com'
+        }
+      })
+      self.list[self.kind]=r.slice(0,9)
+    }else{
+      self.list[self.kind]=[]
+    }
+  },
   methods: {
-    over: function(e) {
+    over: async function(e) {
       let dom = e.target
       let tag = dom.tagName.toLowerCase()
       let self = this
       if(tag === 'dd') {
         this.kind = dom.getAttribute('kind')
-      }else{
-        self.list[self.kind]=[]
+        let keyword = dom.getAttribute('keyword')
+        let {status,data:{count,pois}} = await self.$axios.get('/search/resultsByKeywords',{
+          params:{
+            keyword,
+            city:self.$store.state.geo.position.city
+          }
+        })
+        if(status === 200 && count > 0){
+          // 通过map与后端数据进行映射
+          let r = pois.filter(item=>item.photos.length).map(item=>{
+            return {
+              title:item.name,
+              pos:item.type.split(';')[0],
+              price:item.biz_ext.cost||'暂无',
+              img:item.photos[0].url,
+              url:'//abc.com'
+            }
+          })
+          self.list[self.kind]=r.slice(0,9)
+        }else{
+          self.list[self.kind]=[]
+        }
       }
     }
   },
