@@ -10,6 +10,7 @@
         :label="item.label"
         :value="item.value"/>
     </el-select>
+    <!--通过disable属性和省份选择关联起来-->
     <el-select
       v-model="cvalue"
       :disabled="!city.length"
@@ -20,6 +21,7 @@
         :label="item.label"
         :value="item.value"/>
     </el-select>
+    <!-- elementUI input输入框的远程搜索-->
     <el-autocomplete
       v-model="input"
       :fetch-suggestions="querySearchAsync"
@@ -39,10 +41,12 @@ export default {
       city:[],
       cvalue:'',
       input:'',
+      // 全国的城市列表数据
       cities:[]
     }
   },
   watch:{
+    // 监听province 并改变省份数据内的城市数据
     pvalue:async function(newPvalue){
       let self=this;
       let {status,data:{city}}=await self.$axios.get(`/geo/province/${newPvalue}`)
@@ -53,10 +57,12 @@ export default {
             label:item.name
           }
         })
+        // 切换省份后 清空上一次选择的城市数据
         self.cvalue=''
       }
     }
   },
+  // 页面加载时异步请求到所有省份的数据
   mounted:async function(){
     let self=this;
     let {status,data:{province}}=await self.$axios.get('/geo/province')
@@ -70,9 +76,12 @@ export default {
     }
   },
   methods:{
+    // 利用loadsh的方法做延时处理
     querySearchAsync:_.debounce(async function(query,cb){
       let self=this;
+      // 如果已经有了所有城市的数据
       if(self.cities.length){
+        // 简单的过滤搜索
         cb(self.cities.filter(item => item.value.indexOf(query)>-1))
       }else{
         let {status,data:{city}}=await self.$axios.get('/geo/city')
@@ -80,6 +89,7 @@ export default {
           self.cities=city.map(item=>{return {
             value:item.name
           }})
+          // 再回调里做过滤处理
           cb(self.cities.filter(item => item.value.indexOf(query)>-1))
         }else{
           cb([])
@@ -87,6 +97,7 @@ export default {
       }
     },200),
     handleSelect:function(item){
+      // window.location.href 页面跳转
       console.log(item.value);
     }
   }
