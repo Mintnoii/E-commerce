@@ -6,7 +6,7 @@
       placeholder="省份">
       <el-option
         v-for="item in province"
-        :key="item.value"
+        :key="item.id"
         :label="item.label"
         :value="item.value"/>
     </el-select>
@@ -66,10 +66,12 @@ export default {
   mounted:async function(){
     let self=this;
     let {status,data:{province}}=await self.$axios.get('/geo/province')
+    console.log(province)
     if(status===200){
       self.province=province.map(item=>{
         return {
-          value:item.id,
+          id: item.id,
+          value:item.name,
           label:item.name
         }
       })

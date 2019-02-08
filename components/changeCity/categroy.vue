@@ -5,6 +5,7 @@
       <dd
         v-for="item in list"
         :key="item">
+        <!--通过hash的方式实现跳转到指定城市区域-->
         <a :href="'#city-'+item">{{ item }}</a>
       </dd>
     </dl>
@@ -12,6 +13,7 @@
       v-for="item in block"
       :key="item.title"
       class="m-categroy-section">
+      <!--通过指定id来实现跳转-->
       <dt :id="'city-'+item.title">{{ item.title }}</dt>
       <dd>
         <span
@@ -23,12 +25,14 @@
 </template>
 
 <script>
+// 把后端中文字段处理成拼音的库
 import pyjs from 'js-pinyin'
 export default {
   data(){
     return {
+      // 字母导航列表
       list:'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
-      block:[]
+      block:[] // ['title', 'city']
     }
   },
   async mounted(){
@@ -40,8 +44,11 @@ export default {
       let c
       let d={}
       city.forEach(item=>{
+        // 取得每个城市的拼音首字母再转换成小写
         p=pyjs.getFullChars(item.name).toLocaleLowerCase().slice(0,1)
+        // 得到这个首字母的code值
         c=p.charCodeAt(0)
+        // 从a(97)到z(122)
         if(c>96&&c<123){
           if(!d[p]){
             d[p]=[]
