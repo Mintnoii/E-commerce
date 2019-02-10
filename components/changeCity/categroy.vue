@@ -42,26 +42,31 @@ export default {
     if(status===200){
       let p
       let c
-      let d={}
+      let d={} // 每个拼音字母对应的数组
       city.forEach(item=>{
         // 取得每个城市的拼音首字母再转换成小写
         p=pyjs.getFullChars(item.name).toLocaleLowerCase().slice(0,1)
-        // 得到这个首字母的code值
+        // 得到这个小写首字母的code值
         c=p.charCodeAt(0)
         // 从a(97)到z(122)
         if(c>96&&c<123){
           if(!d[p]){
+            // d[p]临时变量：如果没有这个字母相关的城市列表 那么声明这样一个数组
             d[p]=[]
           }
+          // 如果有的这个字母相关数组的话就把当前城市放进去
           d[p].push(item.name)
         }
       })
+      // 遍历d对象 将其变成一个数组
       for(let [k,v] of Object.entries(d)){
+        // 遵从block的数据格式
         blocks.push({
-          title:k.toUpperCase(),
-          city:v
+          title:k.toUpperCase(), // d 中存储的字母
+          city:v // d[p]的数组结果
         })
       }
+      // 从a到z排序
       blocks.sort((a,b)=>a.title.charCodeAt(0)-b.title.charCodeAt(0))
       self.block=blocks
     }
