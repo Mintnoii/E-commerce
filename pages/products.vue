@@ -8,6 +8,7 @@
       <list :list="list"/>
     </el-col>
     <el-col :span="5">
+      <!--没有经纬度则不显示该组件-->
       <amap
         v-if="point.length"
         :width="230"
@@ -22,6 +23,7 @@
 import Crumbs from '@/components/products/crumbs.vue'
 import Categroy from '@/components/products/categroy.vue'
 import List from '@/components/products/list.vue'
+// 组件名和html标签进行区分
 import Amap from '@/components/public/map.vue'
 export default {
   components:{
@@ -32,6 +34,7 @@ export default {
   },
   data(){
     return {
+      // 子组件中要用到的数据
       list:[],
       types:[],
       areas:[],
@@ -40,7 +43,9 @@ export default {
     }
   },
   async asyncData(ctx){
-    let keyword = ctx.query.keyword
+    // 通过ctx.query获取请求的keyword
+    let keyword = ctx.query.keyword 
+    // 注意这里的字符是否进行编码 encodeURIComponent
     let city = ctx.store.state.geo.position.city
     let {status,data:{count,pois}} = await ctx.$axios.get('/search/resultsByKeywords',{
       params:{
