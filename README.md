@@ -108,6 +108,10 @@ mongodb命令行导入数据：
 
 ### 产品列表页
 
+**高德地图组件**
+
+- [高德开放平台](https://lbs.amap.com/api/javascript-api/guide/abc/prepare)
+
 ### 商品详情页
 
 ### 购物车开发
