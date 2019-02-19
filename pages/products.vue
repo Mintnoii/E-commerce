@@ -53,32 +53,33 @@ export default {
         city
       }
     })
-    let {status:status2,data:{areas,types}} = await ctx.$axios.get('/categroy/crumbs',{
-      params:{
+    let { status: status2, data: { areas, types } } = await ctx.$axios.get('/categroy/crumbs', {
+      params: {
         city
       }
     })
     if(status===200&&count>0&&status2===200){
       return {
+        // 先过滤掉没有图片的数据项，然后将剩下的数据项映射到list数组(传递给list数组)中
         list: pois.filter(item=>item.photos.length).map(item=>{
           return {
             type: item.type,
             img: item.photos[0].url,
             name: item.name,
-            comment: Math.floor(Math.random()*10000),
-            rate: Number(item.biz_ext.rating),
+            comment: Math.floor(Math.random()*10000), // 伪造评论数
+            rate: Number(item.biz_ext.rating), // 数据类型转换
             price: Number(item.biz_ext.cost),
             scene: item.tag,
             tel: item.tel,
             status: '可订明日',
             location: item.location,
-            module: item.type.split(';')[0]
+            module: item.type.split(';')[0] // 只取出第一个类型
           }
         }),
-        keyword,
-        areas: areas.filter(item=>item.type!=='').slice(0,5),
+        keyword, // skill: query里的keyword传递到asyData里，然后再赋值给data里的keyword
+        areas: areas.filter(item=>item.type!=='').slice(0,5), // 数据过滤与截取
         types: types.filter(item=>item.type!=='').slice(0,5),
-        point: (pois.find(item=>item.location).location||'').split(',')
+        point: (pois.find(item=>item.location).location||'').split(',') // 找到第一个包含经纬度数据的item然后取到location，最后把字符串通过逗号分割成数组
       }
     }
   }

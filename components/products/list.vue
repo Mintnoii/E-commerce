@@ -62,6 +62,7 @@ export default {
   },
   methods: {
     navSelect: function () {
+      // 智能排序todo
       console.log('select')
     }
   }
