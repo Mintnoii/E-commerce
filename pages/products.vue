@@ -1,18 +1,25 @@
 <template>
-  <el-row class="page-product">
+  <el-row 
+    ref="pmain" 
+    class="page-product">
     <el-col :span="19">
       <crumbs :keyword="keyword"/>
       <categroy
+        ref = "thecategroy"
         :types="types"
         :areas="areas"/>
-      <list :list="list"/>
+      <list 
+        ref= "plist" 
+        :list="list"/>
     </el-col>
     <el-col :span="5">
       <!--没有经纬度则不显示该组件-->
-      <amap
+      <amap 
+        ref = "themap"
         v-if="point.length"
-        :width="230"
+        :width="width"
         :height="290"
+        :position="position"
         :point="point"/>
     </el-col>
   </el-row>
@@ -38,8 +45,11 @@ export default {
       list:[],
       types:[],
       areas:[],
+      position: 'absolute',
+      width: 240,
       keyword:'',
-      point:[]
+      point:[],
+      products: []
     }
   },
   async asyncData(ctx){
@@ -80,6 +90,43 @@ export default {
         areas: areas.filter(item=>item.type!=='').slice(0,5), // 数据过滤与截取
         types: types.filter(item=>item.type!=='').slice(0,5),
         point: (pois.find(item=>item.location).location||'').split(',') // 找到第一个包含经纬度数据的item然后取到location，最后把字符串通过逗号分割成数组
+      }
+    }
+  },
+  destroyed(){
+    window.removeEventListener('scroll', this.handleScroll)
+  },
+  mounted() {
+    // handleScroll为页面滚动的监听回调
+    window.addEventListener('scroll', this.handleScroll)
+     // 监听dom渲染完成
+    this.$nextTick(function(){
+      // 获取到产品项
+      this.products = this.$refs.plist.$children
+      console.log(this.$refs.plist.$el.offsetTop + this.$refs.pmain.$el.offsetTop)
+
+      // 产品项相对于父元素的偏移量
+      this.offsetHeight = 171
+      // 这里要得到top的距离和元素自身的高度
+      // this.offsetTop = products.offsetTop
+      console.log("offsetTop:" + this.offsetTop + "," + this.offsetHeight)
+    })
+  },
+  methods: {
+    handleScroll: function(){
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      console.log(this.$refs.thecategroy.$el.offsetTop)
+      if(this.$refs.themap && scrollTop > this.$refs.thecategroy.$el.offsetTop + 197 && scrollTop < this.$refs.plist.$el.offsetTop + 197 + this.$refs.plist.$el.offsetHeight) {
+        this.position = 'fixed'
+      }else {
+        this.position = 'absolute'
+        this.$refs.themap.$el.style.top = '0px'
+      }
+      // 判断页面滚动的距离是否大于吸顶元素的位置
+      this.productsFixed = this.products.find(item => scrollTop > item.$el.offsetTop + 197 && scrollTop < item.$el.offsetTop + 197 + 170 )
+      if(this.productsFixed) {
+        this.point = this.productsFixed.meta.location.split(',')
+        console.log(this.productsFixed.meta.location)
       }
     }
   }

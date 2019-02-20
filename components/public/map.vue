@@ -1,7 +1,7 @@
 <template>
   <div
     :id="id"
-    :style="{width:width+'px',height:height+'px',margin:'34px auto'}"
+    :style="{width:width+'px',height:height+'px',margin:'34px auto', position: position}"
     class="m-map"/>
 </template>
 
@@ -15,6 +15,10 @@ export default {
     height: {
       type:Number,
       default:300
+    },
+    position: {
+      type: String,
+      default: 'absolute'
     },
     // 默认北京经纬度
     point: {
