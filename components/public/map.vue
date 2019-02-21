@@ -1,7 +1,7 @@
 <template>
   <div
     :id="id"
-    :style="{width:width+'px',height:height+'px',margin:'34px auto', position: position}"
+    :style="{width:width+'px',height:height+'px',margin:'34px auto', borderRadius: '15px', position: position, top: top, bottom: bottom}"
     class="m-map"/>
 </template>
 
@@ -10,11 +10,11 @@ export default {
   props: {
     width: {
       type:Number,
-      default:300
+      default:280
     },
     height: {
       type:Number,
-      default:300
+      default:280
     },
     position: {
       type: String,
@@ -26,6 +26,14 @@ export default {
       default(){
         return [116.46,39.92]
       }
+    },
+    top: {
+      type: String,
+      default: 'auto'
+    },
+    bottom: {
+      type: String,
+      default: 'auto'
     }
   },
   data() {
@@ -74,6 +82,6 @@ export default {
     jsapi.charset = 'utf-8'
     jsapi.src = url
     document.head.appendChild(jsapi)
-  },
+  }
 }
 </script>

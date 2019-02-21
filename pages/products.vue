@@ -16,11 +16,11 @@
       <!--没有经纬度则不显示该组件-->
       <amap 
         ref = "themap"
-        v-if="point.length"
-        :width="width"
-        :height="290"
-        :position="position"
-        :point="point"/>
+        v-if= "point.length"
+        :top = "top"
+        :bottom = "bottom"
+        :position= "position"
+        :point= "point"/>
     </el-col>
   </el-row>
 
@@ -46,10 +46,12 @@ export default {
       types:[],
       areas:[],
       position: 'absolute',
-      width: 240,
+      top: '0px',
+      bottom: '0px',
       keyword:'',
       point:[],
-      products: []
+      products: [],
+      // pmain组件距离页面顶部的距离
     }
   },
   async asyncData(ctx){
@@ -101,32 +103,38 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
      // 监听dom渲染完成
     this.$nextTick(function(){
-      // 获取到产品项
+      // 获取到产品项组件列表
       this.products = this.$refs.plist.$children
-      console.log(this.$refs.plist.$el.offsetTop + this.$refs.pmain.$el.offsetTop)
-
-      // 产品项相对于父元素的偏移量
-      this.offsetHeight = 171
-      // 这里要得到top的距离和元素自身的高度
-      // this.offsetTop = products.offsetTop
-      console.log("offsetTop:" + this.offsetTop + "," + this.offsetHeight)
+      this.pmainTop = this.$refs.pmain.$el.offsetTop
+      this.categoryTop = this.$refs.thecategroy.$el.offsetTop
+      this.mapHeight = this.$refs.themap.$el.offsetHeight
+      this.listTop = this.$refs.plist.$el.offsetTop
+      this.listHeight = this.$refs.plist.$el.offsetHeight
     })
   },
   methods: {
     handleScroll: function(){
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-      console.log(this.$refs.thecategroy.$el.offsetTop)
-      if(this.$refs.themap && scrollTop > this.$refs.thecategroy.$el.offsetTop + 197 && scrollTop < this.$refs.plist.$el.offsetTop + 197 + this.$refs.plist.$el.offsetHeight) {
-        this.position = 'fixed'
-      }else {
-        this.position = 'absolute'
-        this.$refs.themap.$el.style.top = '0px'
+      // 如果滚动距离小于产品区域到页面顶部的距离
+      if (this.$refs.themap !== undefined) {
+        if(scrollTop < this.categoryTop + this.pmainTop){
+          this.position = 'absolute'
+          this.top = '0px'
+        }else if( scrollTop < this.listTop + this.pmainTop + this.listHeight - this.mapHeight) {
+          this.position = 'fixed'
+          this.top = '-34px'
+          this.bottom = 'auto'
+        }else if(scrollTop > this.listTop + this.pmainTop + this.listHeight - this.mapHeight) {
+          this.position = 'absolute'
+          this.bottom = '-34px'
+          this.top = 'auto'
+        }
       }
+      
       // 判断页面滚动的距离是否大于吸顶元素的位置
-      this.productsFixed = this.products.find(item => scrollTop > item.$el.offsetTop + 197 && scrollTop < item.$el.offsetTop + 197 + 170 )
-      if(this.productsFixed) {
-        this.point = this.productsFixed.meta.location.split(',')
-        console.log(this.productsFixed.meta.location)
+      this.theProduct = this.products.find(item => scrollTop > item.$el.offsetTop + this.pmainTop && scrollTop < item.$el.offsetTop + this.pmainTop + 170 )
+      if(this.theProduct) {
+        this.point = this.theProduct.meta.location.split(',')
       }
     }
   }
