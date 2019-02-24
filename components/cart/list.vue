@@ -13,6 +13,7 @@
     <el-table-column
       label="数量"
       width="212">
+      <!--自定义表单下的计数器-->
       <template slot-scope="scope">
         <el-input-number
           v-model="scope.row.count"
@@ -23,6 +24,7 @@
     label="总价">
       <template slot-scope="scope">
         <div class="">
+          <!--通过scope.row来获取某一行的变量 用来计算总价-->
           {{ scope.row.price*scope.row.count }}
         </div>
       </template>

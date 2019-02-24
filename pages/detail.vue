@@ -17,6 +17,7 @@
         <h3>商家团购及优惠</h3>
       </el-col>
     </el-row>
+    <!--在可以购买或者未登录的时候才显示这部分-->
     <el-row v-if="canOrder || !login">
       <el-col :span="24">
         <list
@@ -56,7 +57,9 @@ export default {
     }
   },
   async asyncData(ctx){
+    // 在服务端运行，此时只能通过ctx.query来拿到keyword
     let {keyword,type}=ctx.query;
+    // 解构赋值
     let {status,data:{product,more:list,login}}=await ctx.$axios.get('/search/products',{
       params:{
         keyword,
@@ -66,6 +69,7 @@ export default {
     })
     if(status===200){
       return {
+        // asyncData中返回的数据不用在data部分再声明
         keyword,
         product,
         type,

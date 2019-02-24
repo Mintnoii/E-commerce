@@ -30,10 +30,12 @@ export default {
   },
   data(){
     return {
+      // 传递到订单list组件内
       cart:[]
     }
   },
   computed:{
+    // 计算总金额
     total(){
       let total=0;
       this.cart.forEach(item=>{
