@@ -1,1 +1,1 @@
-export default '签名sign'
+export default '95570680bad27490f754a18735d66505'
