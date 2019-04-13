@@ -4,7 +4,7 @@
       <el-col
         :span="4"
         class="navbar">
-        <h3>我的美团</h3>
+        <h3>我的味心</h3>
         <dl>
           <dt>我的订单</dt>
           <dd>
@@ -40,6 +40,13 @@
           </dd>
           <dd>
             失效卷
+            <i class="el-icon-arrow-right"/>
+          </dd>
+        </dl>
+        <dl>
+          <dt>个人信息</dt>
+          <dd>
+            账户设置
             <i class="el-icon-arrow-right"/>
           </dd>
         </dl>

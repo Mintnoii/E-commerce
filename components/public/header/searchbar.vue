@@ -7,7 +7,7 @@
           class="left">
           <img 
             src="~assets/img/weixin.png"
-            alt="美团">
+            alt="味心">
         </el-col>
         <el-col 
           :span="15"
@@ -56,7 +56,7 @@
             <li><a href="https://maoyan.com/">猫眼电影</a></li>
             <li><nuxt-link
               to="/"
-              class="hotel">美团酒店</nuxt-link></li>
+              class="hotel">味心酒店</nuxt-link></li>
             <li><nuxt-link
               to="/"
               class="apartment">民宿/公寓</nuxt-link></li>

@@ -11,7 +11,7 @@
           src="//s0.meituan.net/bs/file/?f=fe-sso-fs:build/page/static/banner/www.jpg"
           width="480"
           height="370"
-          alt="美团网">
+          alt="味心网">
       </div>
       <div class="form">
         <h4

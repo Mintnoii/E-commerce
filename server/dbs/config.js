@@ -16,7 +16,7 @@ export default {
       return 'sunburst.wang@qq.com'
     },
     get pass(){
-      return 'vmnmfodvadyubhba'
+      return 'stetyzovhmrybijf'
     },
     get code(){
       return ()=>{

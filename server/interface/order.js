@@ -53,6 +53,7 @@ router.post('/createOrder', async ctx => {
 })
 
 router.post('/getOrders', async ctx => {
+  let id = ctx.session.passport.user._id
   if (!ctx.isAuthenticated()) {
     ctx.body = {
       code: -1,
@@ -61,7 +62,7 @@ router.post('/getOrders', async ctx => {
     }
   } else {
     try {
-      let result = await Order.find()
+      let result = await Order.find({user: id})
       if (result) {
         ctx.body = {
           code: 0,
