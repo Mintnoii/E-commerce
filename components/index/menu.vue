@@ -22,7 +22,9 @@
         <h4 :key="idx">{{ item.title }}</h4>
         <span
           v-for="v in item.child"
-          :key="v">{{ v }}</span>
+          :key="v.name"><a 
+            :href="v.link"
+            target="_blank">{{ v.name }}</a></span>
       </template>
       
     </div>
@@ -48,7 +50,13 @@ export default {
         name: '外卖',
         child: [{
           title: '外卖',
-          child: ['啊发发']
+          child: [{
+            name: '美团外卖',
+            link: 'http://waimai.meituan.com/new/waimaiIndex'
+          },{
+            name: '饿了吗',
+            link: 'http://waimai.meituan.com/new/waimaiIndex'
+          }]
         }]
       },{
         type: 'hotel',

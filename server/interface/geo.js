@@ -1,9 +1,10 @@
 import Router from 'koa-router';
 import axios from './utils/axios'
 import Province from '../dbs/models/province'
+import Menu from '../dbs/models/menu'
 import sign from './utils/sign'
 let router = new Router({prefix: '/geo'})
-
+// 获取城市ip地址
 router.get('/getPosition', async (ctx) => {
   let {
     status,
@@ -138,11 +139,11 @@ router.get('/hotCity', async (ctx) => {
 })
 
 router.get('/menu', async (ctx) => {
-  // const result = await Menu.findOne()
-  // ctx.body = {
-  //   menu: result.menu
-  // }
-  let {status, data: {
+  const result = await Menu.find()
+  ctx.body = {
+    menu: result[0].menu
+  }
+  /*let {status, data: {
       menu
     }} = await axios.get(`http://cp-tools.cn/geo/menu?sign=${sign}`);
   if (status === 200) {
@@ -153,7 +154,7 @@ router.get('/menu', async (ctx) => {
     ctx.body = {
       menu: []
     }
-  }
+  }*/
 })
 
 export default router;

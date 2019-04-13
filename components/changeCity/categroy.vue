@@ -18,7 +18,8 @@
       <dd>
         <span
           v-for="c in item.city"
-          :key="c">{{ c }}</span>
+          @click="test(c)"
+          :key="c"><nuxt-link to="/">{{ c }}</nuxt-link></span>
       </dd>
     </dl>
   </div>
@@ -69,6 +70,19 @@ export default {
       // 从a到z排序
       blocks.sort((a,b)=>a.title.charCodeAt(0)-b.title.charCodeAt(0))
       self.block=blocks
+    }
+  },
+  methods: {
+    async test(c) {
+      this.$store.commit('geo/setPosition', {city: c,province:''})
+      const {status:status3,data:{result}}=await this.$axios.get('/search/hotPlace',{
+        params:{
+          city: c.replace('市','')
+        }
+      })
+      this.$store.commit('home/setHotPlace',status3===200?result:[])
+     // this.$store.state.geo.position.city = c
+      
     }
   }
 }

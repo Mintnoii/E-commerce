@@ -6,7 +6,7 @@
           :span="3"
           class="left">
           <img 
-            src="//s0.meituan.net/bs/fe-web-meituan/e5eeaef/img/logo.png"
+            src="~assets/img/weixin.png"
             alt="美团">
         </el-col>
         <el-col 
@@ -28,7 +28,7 @@
               v-if="isHotPlace">
               <dt>热门搜索</dt>
               <dd
-                v-for="(item,idx) in $store.state.home.hotPlace.slice(0,5)"
+                v-for="(item,idx) in $store.state.home.hotPlace.slice(0,4)"
                 :key="idx">
                 <a :href="'/products?keyword='+encodeURIComponent(item.name)">{{ item.name }}</a>
               </dd>
@@ -45,17 +45,15 @@
           </div>
           <p class="suggest">
             <a
-              v-for="(item,idx) in $store.state.home.hotPlace.slice(0,5)"
+              v-for="(item,idx) in $store.state.home.hotPlace.slice(0,4)"
               :key="idx"
               :href="'/products?keyword='+encodeURIComponent(item.name)">{{ item.name }}</a>
           </p>
           <ul class="nav">
             <li><nuxt-link
               to="/"
-              class="takeout">美团外卖</nuxt-link></li>
-            <li><nuxt-link
-              to="/"
-              class="movie">猫眼电影</nuxt-link></li>
+              class="takeout">味心生活</nuxt-link></li>
+            <li><a href="https://maoyan.com/">猫眼电影</a></li>
             <li><nuxt-link
               to="/"
               class="hotel">美团酒店</nuxt-link></li>

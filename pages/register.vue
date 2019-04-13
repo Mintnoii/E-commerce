@@ -6,8 +6,8 @@
           href="/" 
           class="site-logo"/>
         <span class="login">
-          <em class="bold">已有美团账号？</em>
-          <a href="/logini">
+          <em class="bold">已有味心账号？</em>
+          <a href="/login">
             <el-button 
               type="primary" 
               size="small">登录</el-button>
@@ -69,7 +69,7 @@
           <a
             class="f1"
             href="http://www.meituan.com/about/terms"
-            target="_blank">《美团网用户协议》</a>
+            target="_blank">《味心生活网用户协议》</a>
         </el-form-item>
       </el-form>
     </section>

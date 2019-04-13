@@ -1,11 +1,11 @@
 <template>
   <section class="m-istyle">
     <dl @mouseover="over">
-      <dt>有格调</dt>
+      <dt>味心生活</dt>
       <dd
         :class="{active:kind==='all'}"
         kind="all"
-        keyword="景点">全部</dd>
+        keyword="景点">附近景点</dd>
       <dd
         :class="{active:kind==='part'}"
         kind="part"
@@ -25,18 +25,20 @@
     </dl>
     <ul class="ibody">
       <li
-        v-for="item in cur"
-        :key="item.title">
+        v-for="(item, index) in cur"
+        :key="item.title + index">
         <el-card
           :body-style="{ padding: '0px' }"
           shadow="never">
-          <img
-            :src="item.img"
-            class="image">
+          <a :href="'/products?keyword='+item.title">
+            <img
+              :src="item.img"
+              class="image">
+          </a>
           <ul class="cbody">
             <li class="title">{{ item.title }}</li>
             <li class="pos"><span>{{ item.pos }}</span></li>
-            <li class="price">￥<em>{{ item.price }}</em><span>/起</span></li>
+            <li class="price">￥<em>{{ item.price }}</em><span>/起</span><span class="address">{{ item.address }}</span></li>
           </ul>
         </el-card>
       </li>
@@ -65,10 +67,11 @@ export default {
   // 页面加载完成后就要请求一次数据 keyword默认为 景点
   async mounted(){
     let self=this;
-    let {status,data:{count,pois}}=await self.$axios.get('/search/resultsByKeywords',{
+    let city = self.$store.state.geo.position.city
+    let {status,data:{code,count,pois}}=await self.$axios.get('/search/resultsByKeywords',{
       params:{
         keyword:'景点',
-        city:self.$store.state.geo.position.city
+        city: city
       }
     })
     if(status===200&&count>0){
@@ -78,6 +81,7 @@ export default {
           pos:item.type.split(';')[0],
           price:item.biz_ext.cost||'暂无',
           img:item.photos[0].url,
+          address: item.address||'',
           url:'//abc.com'
         }
       })
@@ -108,6 +112,7 @@ export default {
               pos:item.type.split(';')[0],
               price:item.biz_ext.cost||'暂无',
               img:item.photos[0].url,
+              address: item.address||'',
               url:'//abc.com'
             }
           })
