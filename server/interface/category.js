@@ -3,7 +3,7 @@ import axios from './utils/axios'
 import Province from '../dbs/models/province'
 import sign from './utils/sign'
 
-let router = new Router({prefix: '/categroy'})
+let router = new Router({prefix: '/category'})
 
 router.get('/crumbs',async (ctx)=>{
 

@@ -4,8 +4,8 @@
     class="page-product">
     <el-col :span="19">
       <crumbs :keyword="keyword"/>
-      <categroy
-        ref = "thecategroy"
+      <category
+        ref = "thecategory"
         :types="types"
         :areas="areas"/>
       <list 
@@ -28,14 +28,14 @@
 
 <script>
 import Crumbs from '@/components/products/crumbs.vue'
-import Categroy from '@/components/products/categroy.vue'
+import Category from '@/components/products/category.vue'
 import List from '@/components/products/list.vue'
 // 组件名和html标签进行区分
 import Amap from '@/components/public/map.vue'
 export default {
   components:{
     Crumbs,
-    Categroy,
+    Category,
     List,
     Amap
   },
@@ -65,7 +65,7 @@ export default {
         city
       }
     })
-    let { status: status2, data: { areas, types } } = await ctx.$axios.get('/categroy/crumbs', {
+    let { status: status2, data: { areas, types } } = await ctx.$axios.get('/category/crumbs', {
       params: {
         city
       }
@@ -106,7 +106,7 @@ export default {
       // 获取到产品项组件列表
       this.products = this.$refs.plist.$children
       this.pmainTop = this.$refs.pmain.$el.offsetTop
-      this.categoryTop = this.$refs.thecategroy.$el.offsetTop
+      this.categoryTop = this.$refs.thecategory.$el.offsetTop
       this.mapHeight = this.$refs.themap.$el.offsetHeight
       this.listTop = this.$refs.plist.$el.offsetTop
       this.listHeight = this.$refs.plist.$el.offsetHeight

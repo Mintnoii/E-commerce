@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <dl class="m-categroy">
+    <dl class="m-category">
       <dt>按拼音首字母选择：</dt>
       <dd
         v-for="item in list"
@@ -12,7 +12,7 @@
     <dl
       v-for="item in block"
       :key="item.title"
-      class="m-categroy-section">
+      class="m-category-section">
       <!--通过指定id来实现跳转-->
       <dt :id="'city-'+item.title">{{ item.title }}</dt>
       <dd>
@@ -81,6 +81,7 @@ export default {
         }
       })
       this.$store.commit('home/setHotPlace',status3===200?result:[])
+      console.log(this.$store.state.geo.position.city)
      // this.$store.state.geo.position.city = c
       
     }
@@ -89,5 +90,5 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "@/assets/css/changeCity/categroy.scss";
+  @import "@/assets/css/changeCity/category.scss";
 </style>

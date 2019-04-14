@@ -12,7 +12,7 @@ import passport from './interface/utils/passport'
 import users from './interface/users'
 import geo from './interface/geo'
 import search from './interface/search'
-import categroy from './interface/categroy'
+import category from './interface/category'
 import cart from './interface/cart'
 import order from './interface/order'
 
@@ -52,7 +52,7 @@ async function start() {
   app.use(users.routes()).use(users.allowedMethods())
   app.use(geo.routes()).use(geo.allowedMethods())
   app.use(search.routes()).use(search.allowedMethods())
-  app.use(categroy.routes()).use(categroy.allowedMethods())
+  app.use(category.routes()).use(category.allowedMethods())
   app.use(cart.routes()).use(cart.allowedMethods())
   app.use(order.routes()).use(order.allowedMethods())
   app.use(ctx => {

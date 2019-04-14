@@ -23,7 +23,7 @@
         <span
           v-for="v in item.child"
           :key="v.name"><a 
-            :href="v.link"
+            :href="v.link || 'products?keyword='+ v.name"
             target="_blank">{{ v.name }}</a></span>
       </template>
       
@@ -37,6 +37,7 @@ export default {
     return {
       // 鼠标hover时的种类
       kind: '',
+      city: '上海市',
       menu: [{
         type: 'food',
         name: '美食',
@@ -74,12 +75,12 @@ export default {
       return this.$store.state.home.menu.filter((item) => item.type === this.kind)[0]
     }
   },
-    methods:{
-      mouseleave:function(){
-        let self=this;
-        self._timer=setTimeout(function(){
-          self.kind=''
-        },150)
+  methods:{
+    mouseleave:function(){
+      let self=this;
+      self._timer=setTimeout(function(){
+        self.kind=''
+      },150)
     },
     enter:function(e){
       this.kind=e.target.querySelector('i').className
