@@ -13,6 +13,10 @@ const UserSchema=new Schema({
   email:{
     type:String,
     require:true
+  },
+  phone:{
+    type:Number,
+    require:true
   }
 })
 

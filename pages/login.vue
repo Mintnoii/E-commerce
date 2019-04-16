@@ -60,7 +60,11 @@ export default {
       }).then(({status,data})=>{
         if(status===200){
           if(data&&data.code===0){
-            location.href='/'
+            if(data.user.identity === 'admin'){
+              location.href='/manage'
+            }else{
+              location.href='/'
+            }
           }else{
             self.error=data.msg
           }

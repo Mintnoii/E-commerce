@@ -2,35 +2,33 @@
   <el-container class="layout-default">
     <el-header height="80px">
       <h1>我是头部</h1>
+      <User/>
     </el-header>
     <el-container class="content">
       <el-aside width="200px">
         <el-menu
-          default-active="2"
+          default-active="用户列表"
           class="el-menu-vertical-demo"
           @open="handleOpen"
           @close="handleClose"
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b"
+          @select="handleMenuSelect"
         >
-          <el-submenu index="1">
+          <el-submenu index="数据管理">
             <template slot="title">
-              <i class="el-icon-location"/>
-              <span>导航一</span>
+              <i class="el-icon-document"/>
+              <span>数据管理</span>
             </template>
             <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
+              <template slot="title">用户</template>
+              <el-menu-item index="用户列表"><nuxt-link to="/manage/userlist">用户列表</nuxt-link></el-menu-item>
+              <el-menu-item index="订单列表"><nuxt-link to="/manage/orderlist">订单列表</nuxt-link></el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group title="分组2">
               <el-menu-item index="1-3">选项3</el-menu-item>
             </el-menu-item-group>
-            <el-submenu index="1-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="1-4-1">选项1</el-menu-item>
-            </el-submenu>
           </el-submenu>
           <el-menu-item index="2">
             <i class="el-icon-menu"/>
@@ -49,46 +47,63 @@
         </el-menu>
       </el-aside>
       <el-main>
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item :to="{ path: '/manage' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item 
+            v-for="(list,index) in breads" 
+            :key="index">{{ list }}</el-breadcrumb-item>
+        </el-breadcrumb>
         <nuxt/>
       </el-main>
     </el-container>
   </el-container>
 </template>
 <script>
+import User from '@/components/public/header/user.vue'
 export default {
+  components:{
+    User
+  },
+  data(){
+    return {
+      breads: []
+    }
+  },
   methods: {
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
+    },
+    handleMenuSelect(index,indexPath){
+      console.log(index,'www', indexPath)
+      this.breads=indexPath;
+      console.log(this.breads)
     }
   }
 };
 </script>
-<style>
-.el-header,
-.el-footer {
+<style scoped>
+.el-header {
   background-color: #b3c0d1;
   color: #333;
   text-align: center;
 }
-.content {
-  min-height:100vh;
+.layout-default {
+  min-height: 100vh;
 }
 .el-aside {
-  background-color: #d3dce6;
+  background-color: #535c64;
   color: #333;
   text-align: center;
 }
-
+.el-menu {
+  text-align: left;
+}
 .el-main {
   background-color: #e9eef3;
   color: #333;
   text-align: center;
-}
-
-body > .el-container {
-  margin-bottom: 40px;
 }
 </style>

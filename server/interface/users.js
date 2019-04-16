@@ -11,7 +11,7 @@ let router = new Router({prefix: '/users'})
 let Store = new Redis().client
 
 router.post('/signup', async (ctx) => {
-  const {username, password, email, code} = ctx.request.body;
+  const {username, password, phone, email, code} = ctx.request.body;
 
   if (code) { 
     // 取出服务器的验证码和过期时间  nodeMail会在发送验证码的时候往redis存储code和expire
@@ -46,7 +46,7 @@ router.post('/signup', async (ctx) => {
     }
     return
   }
-  let nuser = await User.create({username, password, email})
+  let nuser = await User.create({username, password, phone, email})
   if (nuser) {
     // 注册成功自动登录
     let res = await axios.post('/users/signin', {username, password})
@@ -79,6 +79,7 @@ router.post('/signin', async (ctx, next) => {
       }
     } else {
       if (user) {
+        console.log(user)
         ctx.body = {
           code: 0,
           msg: '登录成功',
