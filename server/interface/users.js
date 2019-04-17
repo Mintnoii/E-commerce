@@ -79,7 +79,6 @@ router.post('/signin', async (ctx, next) => {
       }
     } else {
       if (user) {
-        console.log(user)
         ctx.body = {
           code: 0,
           msg: '登录成功',
