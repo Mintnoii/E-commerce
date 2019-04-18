@@ -6,8 +6,8 @@ const Order = new Schema({
     require: true
   },
   user:{
-    type:String,
-    require:true
+    type: Schema.Types.objectId,
+    ref: 'users'
   },
   time:{
     type:String,

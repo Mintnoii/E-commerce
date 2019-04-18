@@ -49,15 +49,8 @@ export default {
     };
   },
   async mounted(){
-    let {status, data: {users}} = await this.$axios.get('/manage/users')
-    this.tableData = users.map( item =>{
-      return {
-        date: "2016-05-01",
-        name: item.username,
-        phone: item.phone,
-        email: item.email
-      }
-    })
+    let {status, data: {orders}} = await this.$axios.get('/manage/orders')
+    console.log(data.orders)
   },
   methods: {
     // 初始页currentPage、初始每页数据数pagesize和数据data
