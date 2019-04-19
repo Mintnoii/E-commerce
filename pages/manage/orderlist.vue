@@ -1,24 +1,29 @@
 <template>
   <div>
     <el-table 
+      border
+      align="center"
       :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" 
       style="width: 100%">
       <el-table-column
-        prop="date"
-        label="日期" 
-        width="180" />
+        label="下单日期"
+        width="180">
+        <template slot-scope="scope">
+          <i class="el-icon-time"/>
+          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+        </template>
+      </el-table-column>
       <el-table-column 
         prop="name" 
-        label="姓名" 
-        width="180" />
-
-      <el-table-column
-        prop="email"
-        label="邮箱" 
+        label="商品名" 
         width="180" />
       <el-table-column
-        prop="phone"
-        label="手机" 
+        prop="count"
+        label="商品数量" 
+        width="180" />
+      <el-table-column
+        prop="total"
+        label="金额" 
         width="180" />
     </el-table>
     <el-pagination
@@ -32,36 +37,50 @@
   </div>
 </template>
 
-  <script>
+<script>
 export default {
   layout: 'backend',
   data() {
     return {
       currentPage:1, //初始页
       pagesize:10,    //    每页的数据
-      tableData: [
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄"
-        }
-      ]
+      tableData: []
     };
   },
   async mounted(){
-    let {status, data: {orders}} = await this.$axios.get('/manage/orders')
-    console.log(data.orders)
+    let {status, data: {orders}}  = await this.$axios.get('/manage/orders')
+    this.tableData = orders.map( item =>{
+      return {
+        date: item.time,
+        name: item.name,
+        count: item.count,
+        total: item.total
+      }
+    })
   },
   methods: {
     // 初始页currentPage、初始每页数据数pagesize和数据data
     handleSizeChange: function (size) {
-      this.pagesize = size;
+      this.pagesize = size
       console.log(this.pagesize)  //每页下拉显示数据
     },
     handleCurrentChange: function(currentPage){
-      this.currentPage = currentPage;
+      this.currentPage = currentPage
       console.log(this.currentPage)  //点击第几页
-    }
+    },
+    formatTen: function(num) { 
+      return num > 9 ? (num + "") : ("0" + num)
+    },
+ 
+    formatDate: function (date) { 
+      var year = date.getFullYear()
+      var month = date.getMonth() + 1 
+      var day = date.getDate() 
+      var hour = date.getHours() 
+      var minute = date.getMinutes() 
+      var second = date.getSeconds() 
+      return year + "-" + formatTen(month) + "-" + formatTen(day) 
+    } 
   }
 };
 </script>

@@ -19,7 +19,20 @@
             总价：￥{{ item.total }}
           </el-col>
           <el-col :span="6">
-            {{ item.statusTxt }}
+            <el-button
+              v-if="item.status === 0"
+              type="warning"
+              @click="pay"
+              round>
+              {{ item.statusTxt }}
+            </el-button>
+            <el-button
+              v-else
+              type="success"
+              icon="el-icon-check" 
+              round>
+              {{ item.statusTxt }}
+            </el-button>
           </el-col>
 
         </el-row>
@@ -37,8 +50,8 @@
 </template>
 
 <script>
-    export default {
-        name: "List",
+  export default {
+      name: "List",
       props:{
           cur:{
             type:Array,
@@ -47,6 +60,14 @@
 
             }
           }
+      },
+      methods: {
+        pay(){
+          this.$message({
+            message: '恭喜你，这是一条成功消息',
+            type: 'success'
+          })
+        }
       }
     }
 </script>

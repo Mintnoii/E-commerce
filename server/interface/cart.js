@@ -12,7 +12,7 @@ router.post('/create', async ctx => {
       msg: 'please login'
     }
   } else {
-    let time = Date()
+    let time = new Date().toLocaleString()
     let cartNo = md5(Math.random() * 1000 + time).toString()
     let {
       params: {

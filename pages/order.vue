@@ -4,50 +4,29 @@
       <el-col
         :span="4"
         class="navbar">
-        <h3>我的味心</h3>
+        <h3>味心生活</h3>
         <dl>
           <dt>我的订单</dt>
-          <dd>
-            全部订单
-            <i class="el-icon-arrow-right"/>
-          </dd>
-          <dd>
-            待付款
-            <i class="el-icon-arrow-right"/>
-          </dd>
-          <dd>
-            待使用
-            <i class="el-icon-arrow-right"/>
+          <dd @click="currenttab='orders'">
+            <i class="el-icon-tickets"/>
+            订单列表
+            <i class="el-icon-arrow-right arrow"/>
           </dd>
         </dl>
-
         <dl>
           <dt>我的收藏</dt>
           <dd>
-            收藏的商家
-            <i class="el-icon-arrow-right"/>
-          </dd>
-          <dd>
-            收藏的团购
-            <i class="el-icon-arrow-right"/>
-          </dd>
-        </dl>
-        <dl>
-          <dt>抵用券</dt>
-          <dd>
-            可用卷
-            <i class="el-icon-arrow-right"/>
-          </dd>
-          <dd>
-            失效卷
-            <i class="el-icon-arrow-right"/>
+            <i class="el-icon-star-off"/>
+            收藏列表
+            <i class="el-icon-arrow-right arrow"/>
           </dd>
         </dl>
         <dl>
           <dt>个人信息</dt>
-          <dd>
+          <dd @click="currenttab='account'">
+            <i class="el-icon-setting"/>
             账户设置
-            <i class="el-icon-arrow-right"/>
+            <i class="el-icon-arrow-right arrow"/>
           </dd>
         </dl>
       </el-col>
@@ -56,6 +35,7 @@
         class="table">
         <el-tabs 
           v-model="activeName" 
+          v-if="currenttab==='orders'"
           @tab-click="handleClick">
           <el-tab-pane 
             label="全部订单" 
@@ -69,11 +49,12 @@
             <List :cur="cur"/>
           </el-tab-pane>
           <el-tab-pane 
-            label="待使用" 
-            name="unuse">
+            label="已付款" 
+            name="payed">
             <List :cur="cur"/>
           </el-tab-pane>
         </el-tabs>
+        <account v-show="currenttab==='account'"/>
       </el-col>
     </el-row>
   </div>
@@ -81,14 +62,17 @@
 
 <script>
 import List from "@/components/order/list.vue";
+import Account from '@/components/order/account.vue'
 export default {
   name: "Order",
   components: {
-    List
+    List,
+    Account
   },
   data() {
     return {
       activeName: "all",
+      currenttab: 'orders',
       list: [],
       cur: []
     };
@@ -97,25 +81,29 @@ export default {
     activeName: function(val) {
       this.cur = this.list.filter(item => {
         if (val === "unpay") {
-          return item.status === 0;
-        } else if (val === "all") {
+          return item.status === 0
+        } else if(val === "payed"){
+          return item.status === 1
+        }else if (val === "all") {
           return true;
         } else {
           return false;
         }
-      });
+      })
     },
     list: function() {
-      let val = this.name;
+      let val = this.name
       this.cur = this.list.filter(item => {
         if (val === "unpay") {
-          return item.status === 0;
-        } else if (val === "all") {
+          return item.status === 0
+        } else if(val === "payed"){
+          return item.status === 1
+        }else if (val === "all") {
           return true;
         } else {
           return false;
         }
-      });
+      })
     }
   },
   methods: {
@@ -135,7 +123,7 @@ export default {
           return {
             img: item.imgs.length ? item.imgs[0].url : "/logo.png",
             name: item.name,
-            count: 1,
+            count: item.count,
             total: item.total,
             status: item.status,
             statusTxt: item.status === 0 ? "待付款" : "已付款"
@@ -145,7 +133,7 @@ export default {
           return {
             img: item.imgs.length ? item.imgs[0].url : "/logo.png",
             name: item.name,
-            count: 1,
+            count: item.count,
             total: item.total,
             status: item.status,
             statusTxt: item.status === 0 ? "待付款" : "已付款"

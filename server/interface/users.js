@@ -46,7 +46,7 @@ router.post('/signup', async (ctx) => {
     }
     return
   }
-  let nuser = await User.create({username, password, phone, email})
+  let nuser = await User.create({username, password, phone, email, role: 'user'})
   if (nuser) {
     // 注册成功自动登录
     let res = await axios.post('/users/signin', {username, password})
@@ -153,11 +153,13 @@ router.get('/exit', async (ctx, next) => {
 })
 
 router.get('/getUser', async (ctx) => {
+  console.log(ctx.session.passport.user)
   // passport会把用户信息放在session对象中
   if (ctx.isAuthenticated()) {
-    const {username, email} = ctx.session.passport.user
+    const {username, phone,email} = ctx.session.passport.user
     ctx.body={
       user:username,
+      phone,
       email
     }
   }else{
@@ -167,5 +169,6 @@ router.get('/getUser', async (ctx) => {
     }
   }
 })
+
 
 export default router

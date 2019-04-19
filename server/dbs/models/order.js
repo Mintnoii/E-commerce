@@ -6,10 +6,15 @@ const Order = new Schema({
     require: true
   },
   user:{
-    type: Schema.Types.objectId,
-    ref: 'users'
+    type: mongoose.Schema.Types.ObjectId,
+    //ref: 'users',
+    require:true
   },
   time:{
+    type:String,
+    require:true
+  },
+  count:{
     type:String,
     require:true
   },

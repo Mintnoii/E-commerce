@@ -21,7 +21,7 @@ router.get('/crumbs',async (ctx)=>{
   // }
   let {status,data:{areas,types}} = await axios.get('http://cp-tools.cn/categroy/crumbs',{
     params:{
-      city:ctx.query.city.replace('市','') || "北京",
+      city: '烟台',
       sign
     }
   })

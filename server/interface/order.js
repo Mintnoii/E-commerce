@@ -10,7 +10,7 @@ let router = new Router({
 
 router.post('/createOrder', async ctx => {
   let {id, price, count} = ctx.request.body
-  let time = Date()
+  let time = new Date().toLocaleString()
   let orderrID = md5(Math.random() * 1000 + time).toString()
   if (!ctx.isAuthenticated()) {
     ctx.body = {
