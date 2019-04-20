@@ -40,18 +40,24 @@
           <el-tab-pane 
             label="全部订单" 
             name="all">
-            <List :cur="cur"/>
+            <List 
+              @updatecur="changecur"
+              :cur="cur"/>
           </el-tab-pane>
 
           <el-tab-pane 
             label="待付款" 
             name="unpay">
-            <List :cur="cur"/>
+            <List 
+              @updatecur="changecur"
+              :cur="cur"/>
           </el-tab-pane>
           <el-tab-pane 
             label="已付款" 
             name="payed">
-            <List :cur="cur"/>
+            <List
+              @updatecur="changecur" 
+              :cur="cur"/>
           </el-tab-pane>
         </el-tabs>
         <account v-show="currenttab==='account'"/>
@@ -109,6 +115,12 @@ export default {
   methods: {
     handleClick(tab) {
       this.activeName = tab.name;
+    },
+    changecur(item) {
+      console.log(item)
+      var foundIndex = this.list.findIndex(x => x.id == item.id)
+      this.list[foundIndex] = item
+      console.log(this.list)
     }
   },
   async asyncData(ctx) {
@@ -122,6 +134,7 @@ export default {
         list: list.map(item => {
           return {
             img: item.imgs.length ? item.imgs[0].url : "/logo.png",
+            id: item._id,
             name: item.name,
             count: item.count,
             total: item.total,
@@ -132,6 +145,7 @@ export default {
         cur: list.map(item => {
           return {
             img: item.imgs.length ? item.imgs[0].url : "/logo.png",
+            id: item._id,
             name: item.name,
             count: item.count,
             total: item.total,

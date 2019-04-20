@@ -22,7 +22,7 @@
             <el-button
               v-if="item.status === 0"
               type="warning"
-              @click="pay"
+              @click="pay(item)"
               round>
               {{ item.statusTxt }}
             </el-button>
@@ -57,16 +57,21 @@
             type:Array,
             default:()=>{
               return []
-
             }
           }
       },
       methods: {
-        pay(){
+        async pay(item){
+          // console.log(item)
+          let res = await this.$axios.post('/order/updateOrder',{id: item.id})
+          console.log(res)
           this.$message({
-            message: '恭喜你，这是一条成功消息',
+            message: '订单支付成功',
             type: 'success'
           })
+          item.status = 1
+          item.statusTxt = '已付款'
+          this.$emit('updatecur' , item)
         }
       }
     }

@@ -52,6 +52,14 @@ router.post('/createOrder', async ctx => {
   }
 })
 
+router.post('/updateOrder', async ctx => {
+  let {id} = ctx.request.body
+  let res = await Order.findOneAndUpdate({ _id: id},{status: 1},{new: true})
+  ctx.body = {
+    code: 0,
+    res
+  }
+})
 router.post('/getOrders', async ctx => {
   let id = ctx.session.passport.user._id
   if (!ctx.isAuthenticated()) {
