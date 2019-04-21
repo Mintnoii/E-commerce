@@ -23,11 +23,12 @@
             </template>
             <el-menu-item-group>
               <template slot="title">用户</template>
-              <el-menu-item index="用户列表"><nuxt-link to="/manage/userlist">用户列表</nuxt-link></el-menu-item>
-              <el-menu-item index="订单列表"><nuxt-link to="/manage/orderlist">订单列表</nuxt-link></el-menu-item>
+              <nuxt-link to="/manage/userlist"><el-menu-item index="用户列表">用户列表</el-menu-item></nuxt-link>
+              <nuxt-link to="/manage/orderlist"><el-menu-item index="订单列表">订单列表</el-menu-item></nuxt-link>
             </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="1-3">选项3</el-menu-item>
+            <el-menu-item-group>
+              <template slot="title">管理员</template>
+              <nuxt-link to="/manage/adminlist"><el-menu-item index="管理员列表">管理员列表</el-menu-item></nuxt-link>
             </el-menu-item-group>
           </el-submenu>
           <el-menu-item index="2">
@@ -47,13 +48,17 @@
         </el-menu>
       </el-aside>
       <el-main>
-        <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb 
+          class="breadcrumb" 
+          separator-class="el-icon-arrow-right">
           <el-breadcrumb-item :to="{ path: '/manage' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item 
             v-for="(list,index) in breads" 
             :key="index">{{ list }}</el-breadcrumb-item>
         </el-breadcrumb>
-        <nuxt/>
+        <div class="maincontent">
+          <nuxt/>
+        </div>
       </el-main>
     </el-container>
   </el-container>
@@ -77,7 +82,6 @@ export default {
       console.log(key, keyPath);
     },
     handleMenuSelect(index,indexPath){
-      console.log(index,'www', indexPath)
       this.breads=indexPath;
       console.log(this.breads)
     }
@@ -102,8 +106,16 @@ export default {
   text-align: left;
 }
 .el-main {
-  background-color: #e9eef3;
   color: #333;
   text-align: center;
+}
+.breadcrumb {
+  height: 60px;
+  background: #eff2f7;
+  padding-left: 20px;
+  line-height: 60px;
+}
+.maincontent {
+  margin: 20px;
 }
 </style>

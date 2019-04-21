@@ -1,7 +1,9 @@
 <template>
   <div>
     <el-table 
+      border
       :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" 
+      :header-cell-style="{background:'#eef1f6',color:'#606266',textAlign: 'center'}"
       style="width: 100%">
       <el-table-column
         prop="date"
@@ -11,15 +13,13 @@
         prop="name" 
         label="姓名" 
         width="180" />
-
       <el-table-column
         prop="email"
         label="邮箱" 
         width="180" />
       <el-table-column
         prop="phone"
-        label="手机" 
-        width="180" />
+        label="手机" />
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"

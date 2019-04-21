@@ -12,7 +12,13 @@ router.get('/users',async (ctx)=>{
     users
   }
 })
-
+router.get('/admins',async (ctx)=>{
+  let admins = await Users.find({role: 'admin'})
+  ctx.body = {
+    code: 0,
+    admins
+  }
+})
 router.get('/orders',async (ctx)=>{
   let orders = await Orders.aggregate([
     {
