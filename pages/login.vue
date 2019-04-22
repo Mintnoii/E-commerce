@@ -60,7 +60,7 @@ export default {
       }).then(({status,data})=>{
         if(status===200){
           if(data&&data.code===0){
-            if(data.user.identity === 'admin'){
+            if(data.user.role === 'admin'){
               location.href='/manage'
             }else{
               location.href='/'
