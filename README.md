@@ -1,6 +1,6 @@
 # E-commerce
 
-一个涵盖了Vue、Nuxt.js、Koa2、Mongodb、Redis等众多前后端技术并结合element-ui的电商项目。
+一个涵盖了Vue技术栈、Nuxt.js、Koa2、Mongodb、Redis等众多前后端技术并结合element-ui的电商项目。
 
 ## 项目简介
 **主要功能：**
@@ -111,12 +111,6 @@ mongodb命令行导入数据：
 **高德地图组件**
 
 - [高德开放平台](https://lbs.amap.com/api/javascript-api/guide/abc/prepare)
-
-### 商品详情页
-
-### 购物车开发
-
-### 订单页开发
 
 ## 项目总结和感想
 
