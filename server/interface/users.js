@@ -153,7 +153,6 @@ router.get('/exit', async (ctx, next) => {
 })
 
 router.get('/getUser', async (ctx) => {
-  console.log(ctx.session.passport.user)
   // passport会把用户信息放在session对象中
   if (ctx.isAuthenticated()) {
     const {username, phone,email} = ctx.session.passport.user
