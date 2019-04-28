@@ -1,9 +1,5 @@
 <template>
   <el-container class="layout-default">
-    <el-header height="80px">
-      <h1>我是头部</h1>
-      <User/>
-    </el-header>
     <el-container class="content">
       <el-aside width="200px">
         <el-menu
@@ -16,10 +12,10 @@
           active-text-color="#ffd04b"
           @select="handleMenuSelect"
         >
-          <el-submenu index="数据管理">
+          <el-submenu index="数据列表">
             <template slot="title">
               <i class="el-icon-document"/>
-              <span>数据管理</span>
+              <span>数据列表</span>
             </template>
             <el-menu-item-group>
               <template slot="title">用户</template>
@@ -31,20 +27,28 @@
               <nuxt-link to="/manage/adminlist"><el-menu-item index="管理员列表">管理员列表</el-menu-item></nuxt-link>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item index="2">
-            <i class="el-icon-menu"/>
-            <span slot="title">导航二</span>
-          </el-menu-item>
-          <el-menu-item 
-            index="3" 
-            disabled>
-            <i class="el-icon-document"/>
-            <span slot="title">导航三</span>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <i class="el-icon-setting"/>
-            <span slot="title">导航四</span>
-          </el-menu-item>
+          <el-submenu index="添加数据">
+            <template slot="title">
+              <i class="el-icon-edit-outline"/>
+              <span>添加数据</span>
+            </template>
+            <el-menu-item-group>
+              <nuxt-link to="/manage/addshop"><el-menu-item index="添加商铺">添加商铺</el-menu-item></nuxt-link>
+              <nuxt-link to="/manage/addadmin" >
+                <el-menu-item index="添加管理员">添加管理员
+                </el-menu-item>
+              </nuxt-link>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="系统说明">
+            <template slot="title">
+              <i class="el-icon-info"/>
+              <span>系统说明</span>
+            </template>
+            <el-menu-item-group>
+              <nuxt-link to="/manage/addadmin"><el-menu-item index="系统说明">系统说明</el-menu-item></nuxt-link>
+            </el-menu-item-group>
+          </el-submenu>
         </el-menu>
       </el-aside>
       <el-main>
@@ -64,14 +68,25 @@
   </el-container>
 </template>
 <script>
-import User from '@/components/public/header/user.vue'
 export default {
-  components:{
-    User
-  },
   data(){
     return {
+      role: '',
       breads: []
+    }
+  },
+  computed: {
+    issuper(){
+      return this.role === 'super'?false:true
+    }
+  },
+  async mounted(){
+    let {
+      status,
+      data: { role }
+    } = await this.$axios.get("/users/getUser");
+    if (status === 200) {
+      this.role = role;
     }
   },
   methods: {

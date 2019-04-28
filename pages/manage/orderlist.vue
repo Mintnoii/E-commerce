@@ -21,6 +21,15 @@
       <el-table-column
         prop="total"
         label="金额" />
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button
+            size="small"
+            icon="el-icon-edit"
+            type="primary"
+            @click="handleEdit(scope.$index, scope.row)">备注</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"
@@ -63,6 +72,9 @@ export default {
     handleCurrentChange: function(currentPage){
       this.currentPage = currentPage
       console.log(this.currentPage)  //点击第几页
+    },
+    handleEdit(index, row) {
+      console.log(index, row);
     },
     formatTen: function(num) { 
       return num > 9 ? (num + "") : ("0" + num)

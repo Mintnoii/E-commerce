@@ -20,6 +20,16 @@
       <el-table-column
         prop="phone"
         label="手机"/>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            icon="el-icon-delete"
+            type="danger"
+            :disabled="issuper"
+            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"
@@ -37,13 +47,27 @@ export default {
   layout: 'backend',
   data() {
     return {
+      role: '',
       currentPage:1, //初始页
       pagesize:10,    //    每页的数据
       tableData: []
     };
   },
+ computed: {
+    issuper(){
+      return this.role === 'super'?false:true
+    }
+  },
   async mounted(){
-    let {status, data: {admins}} = await this.$axios.get('/manage/admins')
+    console.log(this.admin)
+    let {
+      status,
+      data: { role }
+    } = await this.$axios.get("/users/getUser");
+    if (status === 200) {
+      this.role = role;
+    }
+    let {status2, data: {admins}} = await this.$axios.get('/manage/admins')
     this.tableData = admins.map( item =>{
       return {
         date: "2016-05-01",
@@ -62,6 +86,9 @@ export default {
     handleCurrentChange: function(currentPage){
       this.currentPage = currentPage;
       console.log(this.currentPage)  //点击第几页
+    },
+    handleDelete(index, row) {
+      console.log(index, row);
     }
   }
 };
