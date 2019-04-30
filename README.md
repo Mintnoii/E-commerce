@@ -113,8 +113,6 @@ mongodb命令行导入数据：
 
 - [高德开放平台](https://lbs.amap.com/api/javascript-api/guide/abc/prepare)
 
-## 项目总结和感想
-
 ## Build Setup
 
 ```bash
