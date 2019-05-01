@@ -107,8 +107,6 @@ mongodb命令行导入数据：
 
 ### 切换城市页
 
-### 产品列表页
-
 **高德地图组件**
 
 - [高德开放平台](https://lbs.amap.com/api/javascript-api/guide/abc/prepare)
