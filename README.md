@@ -53,8 +53,6 @@ Nuxt v2.3.4
 3. `cd E-commerce `
 4. `npm run serve`
 
-### 首页功能
-
 #### 需求分析
 
 **1. 模板设计**
