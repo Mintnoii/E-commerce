@@ -23,6 +23,10 @@
               <nuxt-link to="/manage/orderlist"><el-menu-item index="订单列表">订单列表</el-menu-item></nuxt-link>
             </el-menu-item-group>
             <el-menu-item-group>
+              <template slot="title">商家</template>
+              <nuxt-link to="/manage/shoplist"><el-menu-item index="商家列表">商家列表</el-menu-item></nuxt-link>
+            </el-menu-item-group>
+            <el-menu-item-group>
               <template slot="title">管理员</template>
               <nuxt-link to="/manage/adminlist"><el-menu-item index="管理员列表">管理员列表</el-menu-item></nuxt-link>
             </el-menu-item-group>

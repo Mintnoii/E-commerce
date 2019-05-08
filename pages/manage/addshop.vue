@@ -81,6 +81,7 @@
     },
     methods: {
       onSubmit() {
+        console.log(this.form)
         console.log('submit!');
       }
     }

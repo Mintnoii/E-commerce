@@ -5,9 +5,9 @@
       :header-cell-style="{background:'#eef1f6',color:'#606266',textAlign: 'center'}"
       style="width: 100%">
       <el-table-column
-        prop="date"
-        label="日期" 
-        width="180" />
+        prop="id"
+        label="ID" 
+        width="200" />
       <el-table-column 
         prop="name" 
         label="姓名" 
@@ -59,7 +59,6 @@ export default {
     }
   },
   async mounted(){
-    console.log(this.admin)
     let {
       status,
       data: { role }
@@ -70,7 +69,7 @@ export default {
     let {status2, data: {admins}} = await this.$axios.get('/manage/admins')
     this.tableData = admins.map( item =>{
       return {
-        date: "2016-05-01",
+        id: item._id,
         name: item.username,
         phone: item.phone,
         email: item.email
@@ -88,7 +87,30 @@ export default {
       console.log(this.currentPage)  //点击第几页
     },
     handleDelete(index, row) {
-      console.log(index, row);
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let {code} = this.$axios.post('/manage/deladmin',{ 
+          id: row.id
+        }).then(({status,data})=>{
+          if(status===200){
+            if(data&&data.code===0){
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              })
+              this.tableData.splice(index, 1)
+            }
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'warning',
+          message: '已取消删除'
+        })
+      })
     }
   }
 };

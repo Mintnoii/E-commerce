@@ -56,6 +56,7 @@
   </el-col>
 </template>
 <script>
+  import CryptoJS from 'crypto-js'
   export default {
     layout: 'backend',
     data() {
@@ -116,22 +117,43 @@
             { required: true, validator: checkNickname, trigger: 'blur' }
           ],
           checkPhone: [
-            { validator: checkPhone, trigger: 'blur' }
+            { required: true, validator: checkPhone, trigger: 'blur' }
           ],
         }
       };
     },
     methods: {
       submitForm(formName) {
+        let self = this
         this.$refs[formName].validate((valid) => {
           if (valid) {
-             this.$notify({
-                title: '添加成功',
-                message: `您已成功添加管理员${this.ruleForm2.nickname}`,
-                type: 'success'
-              })
+            self.$axios.post('/manage/addadmin', {
+              username: window.encodeURIComponent(self.ruleForm2.nickname),
+              password: CryptoJS.MD5(self.ruleForm2.checkPass).toString(),
+              phone: self.ruleForm2.checkPhone,
+              email: self.ruleForm2.checkEmail
+            }).then(({status,data})=>{
+              if(status===200){
+                if(data&&data.code===0){
+                  console.log(data)
+                  self.$notify({
+                    title: '添加成功',
+                    message: `成功添加管理员${self.ruleForm2.nickname}`,
+                    type: 'success'
+                  })
+                }else{
+                  self.$message.error(data.msg);
+                  return false;
+                }
+              }else{
+                self.error=`服务器出错`
+              }
+              setTimeout(function () {
+                self.error = ''
+              }, 1500)
+            })
           } else {
-            this.$message.error('添加失败，error submit !!!');
+            self.$message.error('表单验证失败，error submit !!!');
             return false;
           }
         });

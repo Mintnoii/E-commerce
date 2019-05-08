@@ -21,6 +21,9 @@
       <el-table-column
         prop="total"
         label="金额" />
+      <el-table-column
+        prop="status"
+        label="状态" />
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button
@@ -59,7 +62,8 @@ export default {
         date: item.time,
         name: item.name,
         count: item.count,
-        total: item.total
+        total: item.total,
+        status: item.status===1?'已支付':'未支付'
       }
     })
   },

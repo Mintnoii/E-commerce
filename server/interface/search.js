@@ -7,7 +7,7 @@ import sign from './utils/sign'
 let router = new Router({prefix: '/search'})
 
 router.get('/top', async (ctx) => {
-  /*try {
+  /* try {
     let top = await Poi.find({
       'name': new RegExp(ctx.query.input),
       city: ctx.query.city
@@ -27,7 +27,7 @@ router.get('/top', async (ctx) => {
       code: -1,
       top: []
     }
-  }*/
+  } */
   let {status, data: {
       top
     }} = await axios.get(`http://cp-tools.cn/search/top`, {
@@ -45,47 +45,47 @@ router.get('/top', async (ctx) => {
 })
 
 router.get('/hotPlace', async (ctx) => {
-  // let city = ctx.store ? ctx.store.geo.position.city : ctx.query.city
-  // try {
-  //   let result = await Poi.find({
-  //     city,
-  //     type: ctx.query.type || '景点'
-  //   }).limit(10)
+  let city = ctx.store ? ctx.store.geo.position.city : ctx.query.city
+  try {
+    let result = await Poi.find({
+      city,
+      type: ctx.query.type || '丽人'
+    }).limit(10)
   //
-  //   ctx.body = {
-  //     code: 0,
-  //     result: result.map(item => {
-  //       return {
-  //         name: item.name,
-  //         type: item.type
-  //       }
-  //     })
-  //   }
-  // } catch (e) {
-  //   ctx.body = {
-  //     code: -1,
-  //     result: []
-  //   }
-  // }
-  let city = ctx.store
-    ? ctx.store.geo.position.city
-    : ctx.query.city
-  let {status, data: {
-      result
-    }} = await axios.get(`http://cp-tools.cn/search/hotPlace`, {
-    params: {
-      sign,
-      city
+    ctx.body = {
+      code: 0,
+      result: result.map(item => {
+        return {
+          name: item.name,
+          type: item.type
+        }
+      })
     }
-  })
-  ctx.body = {
-    result: status === 200? result: []
+  } catch (e) {
+    ctx.body = {
+      code: -1,
+      result: []
+    }
   }
+  //let city = ctx.store
+    //? ctx.store.geo.position.city
+    //: ctx.query.city
+  //let {status, data: {
+    //  result
+    //}} = await axios.get(`http://cp-tools.cn/search/hotPlace`, {
+    //params: {
+     // sign,
+     // city
+    //}
+  //})
+  //ctx.body = {
+    //result: status === 200? result: []
+  //}
 })
 
 router.get('/resultsByKeywords', async (ctx) => {
   const {city, keyword} = ctx.query;
-  if(city === '烟台市' && keyword === '景点'){
+  if(city === '烟台'|| city === '烟台市' && keyword === '景点'){
     let result = await Yantai.find({})
     ctx.body = {
       code: 0,
