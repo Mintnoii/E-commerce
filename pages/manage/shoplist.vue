@@ -66,7 +66,7 @@
           prop="city">
           <el-input 
             type="text" 
-            v-model="shopData.address"/>
+            v-model="shopData.city"/>
         </el-form-item>
         <el-form-item 
           label="所在街道 :" 
@@ -145,7 +145,7 @@ export default {
       }).then(({status,data})=>{
         if(status===200){
           if(data&&data.code===0){
-            dialogVisible = false
+            this.dialogVisible = false
             this.$message({
               type: 'success',
               message: '修改成功!'
@@ -167,7 +167,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        let {code} = this.$axios.post('/manage/deladmin',{ 
+        let {code} = this.$axios.post('/manage/delshop',{ 
           id: row.id
         }).then(({status,data})=>{
           if(status===200){

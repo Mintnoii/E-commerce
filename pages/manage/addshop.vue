@@ -4,51 +4,48 @@
       ref="form" 
       :model="form" 
       label-width="80px">
-      <el-form-item label="商家名称">
+      <el-form-item label="店铺名称">
         <el-input v-model="form.name"/>
       </el-form-item>
-      <el-form-item label="商家地址">
-        <el-input v-model="form.region"/>
+      <el-form-item label="所在城市">
+        <el-input v-model="form.city"/>
+      </el-form-item>
+      <el-form-item label="街道地址">
+        <el-input v-model="form.address"/>
+      </el-form-item>
+      <el-form-item label="联系方式">
+        <el-input 
+          type="Number"
+          pattern="[0-9]*"
+          v-model="form.concat"/>
       </el-form-item>
       <el-form-item label="添加时间">
-        <el-col :span="11">
-          <el-date-picker 
-            type="date" 
-            placeholder="选择日期" 
-            v-model="form.date1"/>
-        </el-col>
-        <el-col 
-          class="line" 
-          :span="2">-</el-col>
-        <el-col :span="11">
-          <el-time-picker 
-            placeholder="选择时间" 
-            v-model="form.date2"/>
-        </el-col>
+        <el-date-picker 
+          type="date" 
+          placeholder="选择日期" 
+          v-model="form.date"/>
       </el-form-item>
-      <el-form-item label="即时配送">
-        <el-switch v-model="form.delivery"/>
+      <el-form-item label="店铺性质">
+        <el-radio-group v-model="form.type">
+          <el-radio label="美食/餐厅"/>
+          <el-radio label="电影/娱乐"/>
+          <el-radio label="生活服务"/>
+        </el-radio-group>
       </el-form-item>
-      <el-form-item label="商家性质">
-        <el-checkbox-group v-model="form.type">
+      <el-form-item label="特殊资源">
+        <el-checkbox-group v-model="form.tag">
           <el-checkbox 
-            label="美食/餐厅"
+            label="线上品牌商赞助"
             name="type"/>
           <el-checkbox 
-            label="生活服务" 
+            label="线下场地免费" 
             name="type"/>
           <el-checkbox 
-            label="电影/娱乐" 
+            label="优惠活动" 
             name="type"/>
         </el-checkbox-group>
       </el-form-item>
-      <el-form-item label="特殊资源">
-        <el-radio-group v-model="form.resource">
-          <el-radio label="线上品牌商赞助"/>
-          <el-radio label="线下场地免费"/>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="商家备注">
+      <el-form-item label="店铺备注">
         <el-input 
           type="textarea" 
           v-model="form.desc"/>
@@ -69,19 +66,39 @@
       return {
         form: {
           name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
+          city: '',
+          address: '',
+          concat: '',
+          date: '',
+          tag: [],
+          type: '',
           desc: ''
         }
       }
     },
     methods: {
       onSubmit() {
-        console.log(this.form)
+        this.$axios.post('/manage/addshop',{ 
+          name: this.form.name,
+          city: this.form.city,
+          address: this.form.address,
+          concat: this.form.concat,
+          date: this.form.date,
+          tag: this.form.tag,
+          type: this.form.type,
+          desc: this.form.desc
+        }).then(({status,data})=>{
+          if(status===200){
+            if(data&&data.code===0){
+              this.dialogVisible = false
+              this.$message({
+                type: 'success',
+                message: '添加成功!'
+              })
+              this.form = {}
+            }
+          }
+        })
         console.log('submit!');
       }
     }

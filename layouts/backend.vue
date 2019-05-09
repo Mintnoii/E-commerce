@@ -3,7 +3,7 @@
     <el-container class="content">
       <el-aside width="200px">
         <el-menu
-          default-active="用户列表"
+          default-active="home"
           class="el-menu-vertical-demo"
           @open="handleOpen"
           @close="handleClose"
@@ -11,7 +11,13 @@
           text-color="#fff"
           active-text-color="#ffd04b"
           @select="handleMenuSelect"
-        >
+        > 
+          <nuxt-link to="/manage/">
+            <el-menu-item index="home">
+              <i class="el-icon-menu"/>
+              <span slot="title">系统首页</span>
+            </el-menu-item>
+          </nuxt-link>
           <el-submenu index="数据列表">
             <template slot="title">
               <i class="el-icon-document"/>
@@ -50,7 +56,7 @@
               <span>系统说明</span>
             </template>
             <el-menu-item-group>
-              <nuxt-link to="/manage/addadmin"><el-menu-item index="系统说明">系统说明</el-menu-item></nuxt-link>
+              <nuxt-link to="/manage/system"><el-menu-item index="系统说明">系统说明</el-menu-item></nuxt-link>
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
@@ -63,6 +69,10 @@
           <el-breadcrumb-item 
             v-for="(list,index) in breads" 
             :key="index">{{ list }}</el-breadcrumb-item>
+          <span class="user">
+            <i class="el-icon-s-custom"/>
+            欢迎您，{{ user }}
+          </span>
         </el-breadcrumb>
         <div class="maincontent">
           <nuxt/>
@@ -75,6 +85,7 @@
 export default {
   data(){
     return {
+      user: '',
       role: '',
       breads: []
     }
@@ -87,10 +98,11 @@ export default {
   async mounted(){
     let {
       status,
-      data: { role }
+      data: { user, role }
     } = await this.$axios.get("/users/getUser");
     if (status === 200) {
-      this.role = role;
+      this.user=user
+      this.role = role
     }
   },
   methods: {
@@ -133,6 +145,10 @@ export default {
   background: #eff2f7;
   padding-left: 20px;
   line-height: 60px;
+}
+.user{
+  float: right;
+  margin-right: 30px;
 }
 .maincontent {
   margin: 20px;

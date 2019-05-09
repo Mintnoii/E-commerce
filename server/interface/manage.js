@@ -47,16 +47,51 @@ router.get('/orders',async (ctx)=>{
   }
 })
 router.post('/updateshop', async ctx =>{
-  await Yantai.where({
-    id: ctx.request.body.id
-  }).update({
-    name: ctx.request.body.name,
-    cityname: ctx.request.body.city,
-    address: ctx.request.body.address,
-    tel: ctx.request.body.city.concat
+  await Yantai.update({
+    "pois.id": ctx.request.body.id
+  },{
+    $set:{
+      "pois.$.nanme": ctx.request.body.name,
+      "pois.$.cityname": ctx.request.body.city,
+      "pois.$.address": ctx.request.body.address,
+      "pois.$.tel": ctx.request.body.concat
+    }
   })
   ctx.body = {
     code: 0
+  }
+})
+router.post('/addshop', async ctx =>{
+  await Yantai.update({
+    "_id" : "5cb15a963432b418431ba9e3"
+  },{$push:{"pois":{
+    $each: [{
+      id: (Number(ctx.request.body.concat)+Math.random()).toString(36).substr(1).replace('.','').toUpperCase(),
+      name: ctx.request.body.name,
+      cityname: ctx.request.body.city+'市',
+      tag: ctx.request.body.tag,
+      address: ctx.request.body.address,
+      tel: ctx.request.body.concat,
+      type: ctx.request.body.type,
+      date: ctx.request.body.date,
+      desc: ctx.request.body.desc
+    }],
+    $position: 0
+  }}})
+  ctx.body = {
+    code: 0
+  }
+})
+router.post('/delshop', async ctx => {
+  await Yantai.update({
+    "_id" : "5cb15a963432b418431ba9e3"
+  },{
+    $pull:{
+      "pois":{"id": ctx.request.body.id}
+    }})
+  ctx.body={
+    code: 0,
+    msg: '删除成功'
   }
 })
 router.post('/addadmin', async (ctx) => {
