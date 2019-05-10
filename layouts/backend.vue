@@ -44,7 +44,9 @@
             </template>
             <el-menu-item-group>
               <nuxt-link to="/manage/addshop"><el-menu-item index="添加商铺">添加商铺</el-menu-item></nuxt-link>
-              <nuxt-link to="/manage/addadmin" >
+              <nuxt-link
+                :disabled="issuper"
+                to="/manage/addadmin" >
                 <el-menu-item index="添加管理员">添加管理员
                 </el-menu-item>
               </nuxt-link>
@@ -103,6 +105,9 @@ export default {
     if (status === 200) {
       this.user=user
       this.role = role
+      if(this.role === "user"){
+        window.location.href = './login'
+      }
     }
   },
   methods: {

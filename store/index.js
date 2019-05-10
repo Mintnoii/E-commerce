@@ -22,7 +22,6 @@ const store = () => new Vuex.Store({
           province,
           city
         }} = await app.$axios.get('/geo/getPosition')
-        console.log(city)
         // 将获取到的数据提交到vuex里
       commit('geo/setPosition',status===200?{city,province}:{city:'',province:''})
         // 重命名status

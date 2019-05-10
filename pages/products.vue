@@ -58,7 +58,7 @@ export default {
     // 通过ctx.query获取请求的keyword
     let keyword = ctx.query.keyword 
     // 注意这里的字符是否进行编码 encodeURIComponent
-    let city = ctx.store.state.geo.position.city
+    let city = ctx.store.state.geo.position.city 
     let {status,data:{count,pois}} = await ctx.$axios.get('/search/resultsByKeywords',{
       params:{
         keyword,
@@ -70,6 +70,7 @@ export default {
         city
       }
     })
+    console.log(areas)
     if(status===200&&count>0&&status2===200){
       return {
         // 先过滤掉没有图片的数据项，然后将剩下的数据项映射到list数组(传递给list数组)中

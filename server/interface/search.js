@@ -85,7 +85,8 @@ router.get('/hotPlace', async (ctx) => {
 
 router.get('/resultsByKeywords', async (ctx) => {
   const {city, keyword} = ctx.query;
-  if(city === '烟台'|| city === '烟台市' && keyword === '景点'){
+  //( && keyword === '景点')|| (city === '烟台市' && keyword === '景点')
+  if(city === '烟台'|| city === '烟台市'){
     let result = await Yantai.find({})
     ctx.body = {
       code: 0,

@@ -1,5 +1,6 @@
 import Router from 'koa-router';
 import axios from './utils/axios'
+import Categroy from '../dbs/models/category'
 import Province from '../dbs/models/province'
 import sign from './utils/sign'
 
@@ -7,19 +8,19 @@ let router = new Router({prefix: '/category'})
 
 router.get('/crumbs',async (ctx)=>{
 
-  // let result = await Categroy.findOne({city: ctx.query.city.replace('市', '') || '北京'})
-  // if (result) {
-  //   ctx.body = {
-  //     areas: result.areas,
-  //     types: result.types
-  //   }
-  // } else {
-  //   ctx.body = {
-  //     areas: [],
-  //     types: []
-  //   }
-  // }
-  let {status,data:{areas,types}} = await axios.get('http://cp-tools.cn/categroy/crumbs',{
+  let result = await Categroy.findOne({city: ctx.query.city.replace('市', '') || '北京'})
+  if (result) {
+    ctx.body = {
+      areas: result.areas,
+      types: result.types
+    }
+  } else {
+    ctx.body = {
+      areas: [],
+      types: []
+    }
+  }
+  /* let {status,data:{areas,types}} = await axios.get('http://cp-tools.cn/categroy/crumbs',{
     params:{
       city: '烟台',
       sign
@@ -28,7 +29,7 @@ router.get('/crumbs',async (ctx)=>{
   ctx.body={
     areas: status===200?areas:[],
     types: status===200?types:[]
-  }
+  } */
 })
 
 
