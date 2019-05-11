@@ -87,11 +87,25 @@ router.get('/resultsByKeywords', async (ctx) => {
   const {city, keyword} = ctx.query;
   //( && keyword === '景点')|| (city === '烟台市' && keyword === '景点')
   if(city === '烟台'|| city === '烟台市'){
-    let result = await Yantai.find({})
-    ctx.body = {
-      code: 0,
-      count: result[0].count,
-      pois: result[0].pois
+    let results= await Yantai.find({})
+    if(keyword === '美食'){
+      ctx.body = {
+        code: 0,
+        count: results[0].count,
+        datas: results[0].foods
+      }
+    }else if(keyword === '丽人'){
+      ctx.body = {
+        code: 0,
+        count: results[0].count,
+        datas: results[0].spas
+      }
+    }else{
+      ctx.body = {
+        code: 0,
+        count: results[0].count,
+        datas: results[0].pois
+      }
     }
   }else {
     let {
@@ -104,7 +118,7 @@ router.get('/resultsByKeywords', async (ctx) => {
       params: {
         city,
         keyword,
-        sign
+        sign //第三方接口数据密钥
       }
     })
     ctx.body = {

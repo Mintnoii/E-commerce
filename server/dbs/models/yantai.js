@@ -7,6 +7,12 @@ const Yantai = new Schema({
   pois: {
     type: Array,
   },
+  foods: {
+    type: Array,
+  },
+  spas: {
+    type: Array,
+  }
 })
 
 export default mongoose.model('Yantai', Yantai)

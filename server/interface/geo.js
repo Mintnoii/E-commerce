@@ -7,7 +7,7 @@ import sign from './utils/sign'
 let router = new Router({prefix: '/geo'})
 // 获取城市ip地址
 router.get('/getPosition', async (ctx) => {
-  let {
+  /* let {
     status,
     data: {
       province,
@@ -24,6 +24,10 @@ router.get('/getPosition', async (ctx) => {
       province: '山东',
       city: '烟台'
     }
+  } */
+  ctx.body = {
+    province: '山东',
+    city: '烟台'
   }
 })
 

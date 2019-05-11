@@ -68,14 +68,14 @@ export default {
   async mounted(){
     let self=this;
     let city = self.$store.state.geo.position.city
-    let {status,data:{code,count,pois}}=await self.$axios.get('/search/resultsByKeywords',{
+    let {status,data:{code,count,datas}}=await self.$axios.get('/search/resultsByKeywords',{
       params:{
         keyword:'景点',
         city: city
       }
     })
     if(status===200&&count>0){
-      let r= pois.filter(item=>item.photos.length).map(item=>{
+      let r= datas.filter(item=>item.photos.length).map(item=>{
         return {
           title:item.name,
           pos:item.type.split(';')[0],
@@ -98,7 +98,7 @@ export default {
       if(tag === 'dd') {
         this.kind = dom.getAttribute('kind')
         let keyword = dom.getAttribute('keyword')
-        let {status,data:{count,pois}} = await self.$axios.get('/search/resultsByKeywords',{
+        let {status,data:{count,datas}} = await self.$axios.get('/search/resultsByKeywords',{
           params:{
             keyword,
             city:self.$store.state.geo.position.city
@@ -106,7 +106,7 @@ export default {
         })
         if(status === 200 && count > 0){
           // 通过map与后端数据进行映射
-          let r = pois.filter(item=>item.photos.length).map(item=>{
+          let r = datas.filter(item=>item.photos.length).map(item=>{
             return {
               title:item.name,
               pos:item.type.split(';')[0],
