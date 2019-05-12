@@ -85,10 +85,15 @@ router.get('/hotPlace', async (ctx) => {
 
 router.get('/resultsByKeywords', async (ctx) => {
   const {city, keyword} = ctx.query;
-  //( && keyword === '景点')|| (city === '烟台市' && keyword === '景点')
   if(city === '烟台'|| city === '烟台市'){
     let results= await Yantai.find({})
-    if(keyword === '美食'){
+    if(keyword === '景点'||keyword === '旅游'){
+      ctx.body = {
+        code: 0,
+        count: results[0].count,
+        datas: results[0].pois
+      }
+    }else if(keyword === '美食'){
       ctx.body = {
         code: 0,
         count: results[0].count,
@@ -100,11 +105,30 @@ router.get('/resultsByKeywords', async (ctx) => {
         count: results[0].count,
         datas: results[0].spas
       }
-    }else{
+    }else if(keyword === '电影'){
       ctx.body = {
         code: 0,
         count: results[0].count,
-        datas: results[0].pois
+        datas: results[0].cinemas
+      }
+    }else if(keyword === '甜点'){
+      let arr = results[0].foods.filter(item =>{
+        return item.tag.includes(keyword)
+      })
+      ctx.body = {
+        code: 0,
+        count: results[0].count,
+        datas: arr
+      }
+    }else{
+      let alldata = results[0].pois.concat(results[0].foods, results[0].cinemas, results[0].spas)
+      let res = alldata.filter( item => {
+        return item.name === keyword
+      })
+      ctx.body = {
+        code: 0,
+        count: results[0].count,
+        datas: res
       }
     }
   }else {
@@ -131,9 +155,25 @@ router.get('/resultsByKeywords', async (ctx) => {
 })
 
 router.get('/products', async (ctx) => {
+  let tag= ctx.query.tag || ''
   let keyword = ctx.query.keyword || '旅游'
-  let city = ctx.query.city || '烟台'
-  let {
+  // let city = ctx.query.city || '烟台'
+  let results= await Yantai.find({})
+  console.log(222+tag)
+  if(keyword){
+    let alldata = results[0].pois.concat(results[0].foods, results[0].cinemas, results[0].spas)
+    let arr = alldata.filter( item => {
+      return item.name === keyword
+    })
+    ctx.body = {
+      product: arr[0],
+      more: ctx.isAuthenticated() ? arr: [],
+      login: ctx.isAuthenticated()
+    }
+  }
+  
+  
+  /* let {
     status,
     data: {
       product,
@@ -145,8 +185,8 @@ router.get('/products', async (ctx) => {
       city,
       sign
     }
-  })
-  if (status === 200) {
+  }) */
+  /* if (status === 200) {
     ctx.body = {
       product,
       more: ctx.isAuthenticated() ? more: [],
@@ -158,7 +198,7 @@ router.get('/products', async (ctx) => {
       more: ctx.isAuthenticated() ? more: [],
       login: ctx.isAuthenticated()
     }
-  }
+  } */
 })
 
 export default router

@@ -12,6 +12,9 @@ const Yantai = new Schema({
   },
   spas: {
     type: Array,
+  },
+  cinemas: {
+    type: Array
   }
 })
 
