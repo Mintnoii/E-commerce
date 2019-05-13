@@ -85,6 +85,7 @@ router.get('/hotPlace', async (ctx) => {
 
 router.get('/resultsByKeywords', async (ctx) => {
   const {city, keyword} = ctx.query;
+  let foodslist = ['甜点', '火锅', '拉面', '小吃快餐', '自助餐', "饮品"]
   if(city === '烟台'|| city === '烟台市'){
     let results= await Yantai.find({})
     if(keyword === '景点'||keyword === '旅游'){
@@ -111,7 +112,7 @@ router.get('/resultsByKeywords', async (ctx) => {
         count: results[0].count,
         datas: results[0].cinemas
       }
-    }else if(keyword === '甜点'){
+    }else if(foodslist.includes(keyword)){
       let arr = results[0].foods.filter(item =>{
         return item.tag.includes(keyword)
       })
@@ -155,11 +156,10 @@ router.get('/resultsByKeywords', async (ctx) => {
 })
 
 router.get('/products', async (ctx) => {
-  let tag= ctx.query.tag || ''
   let keyword = ctx.query.keyword || '旅游'
+  console.log(keyword)
   // let city = ctx.query.city || '烟台'
   let results= await Yantai.find({})
-  console.log(222+tag)
   if(keyword){
     let alldata = results[0].pois.concat(results[0].foods, results[0].cinemas, results[0].spas)
     let arr = alldata.filter( item => {

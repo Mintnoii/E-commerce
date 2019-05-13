@@ -60,9 +60,6 @@
             <li><nuxt-link
               to="/"
               class="apartment">民宿/公寓</nuxt-link></li>
-            <li><nuxt-link
-              to="/"
-              class="business">商家入驻</nuxt-link></li>
           </ul>
         </el-col>
         <el-col 

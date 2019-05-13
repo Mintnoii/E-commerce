@@ -35,11 +35,11 @@
         <li>
           <span class="detail-type">跟团</span>{{meta.group}}
         </li> -->
-        <li v-if="meta.scene&&meta.scene.length">
-          <span class="detail-type">景酒</span>{{ meta.scene }}
+        <li v-if="meta.scene">
+          <span class="detail-type">优惠</span>{{ meta.scene }}
         </li>
         <li v-else>
-          <span class="detail-type">景酒</span>暂无描述
+          <span class="detail-type">优惠</span>暂无描述
         </li>
       </ul>
     </dd>

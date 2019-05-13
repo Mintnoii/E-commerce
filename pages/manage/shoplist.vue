@@ -1,5 +1,28 @@
 <template>
   <div>
+    <!-- <div class="topsearch">
+      <el-dropdown 
+        size="medium" 
+        split-button 
+        type="primary">
+        店铺分类
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>风景名胜</el-dropdown-item>
+          <el-dropdown-item>美食</el-dropdown-item>
+          <el-dropdown-item>电影娱乐</el-dropdown-item>
+          <el-dropdown-item>生活服务</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <div class="demo-input-suffix">
+        <el-input
+          placeholder="店铺名称查找"
+          v-model="input">
+          <i 
+            slot="prefix" 
+            class="el-input__icon el-icon-search"/>
+        </el-input>
+      </div>
+    </div> -->
     <el-table 
       border
       align="center"
@@ -15,6 +38,9 @@
       <el-table-column
         prop="city"
         label="所在城市" />
+      <el-table-column
+        prop="type"
+        label="店铺性质" />
       <el-table-column
         prop="address"
         label="店铺地址" />
@@ -32,7 +58,7 @@
             size="mini"
             icon="el-icon-delete"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            @click="handleDelete(scope.$index+(currentPage-1)*pagesize, scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -109,12 +135,12 @@ export default {
   },
   async mounted(){
     let {status, data: {shops}}  = await this.$axios.get('/manage/shops')
-    console.log(shops)
     this.tableData = shops.map( item =>{
       return {
         id: item.id,
         name: item.name,
         city: item.cityname,
+        type: item.type,
         address: item.address,
         concat: item.tel
       }
@@ -139,6 +165,7 @@ export default {
       this.$axios.post('/manage/updateshop',{ 
         id: shopData.id,
         name: shopData.name,
+        type: shopData.type,
         address: shopData.address,
         concat: shopData.concat,
         city: shopData.city
@@ -168,7 +195,8 @@ export default {
         type: 'warning'
       }).then(() => {
         let {code} = this.$axios.post('/manage/delshop',{ 
-          id: row.id
+          id: row.id,
+          type: row.type
         }).then(({status,data})=>{
           if(status===200){
             if(data&&data.code===0){
@@ -176,6 +204,7 @@ export default {
                 type: 'success',
                 message: '删除成功!'
               })
+              console.log(this.tableData[index])
               this.tableData.splice(index, 1)
             }
           }
@@ -190,3 +219,12 @@ export default {
   }
 };
 </script>
+<style lang="css">
+  .topsearch {
+    margin-bottom: 20px;
+    display: flex;
+  }
+  .el-dropdown {
+    margin-right: 20px;
+  }
+</style>

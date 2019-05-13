@@ -65,6 +65,7 @@ export default {
         city
       }
     })
+    console.log(datas)
     let { status: status2, data: { areas, types } } = await ctx.$axios.get('/category/crumbs', {
       params: {
         city
@@ -81,7 +82,7 @@ export default {
             comment: Math.floor(Math.random()*10000), // 伪造评论数
             rate: Number(item.biz_ext.rating), // 数据类型转换
             price: Number(item.biz_ext.cost),
-            scene: item.tag,
+            scene: item.shopinfo,
             tel: item.tel,
             status: '可订明日',
             location: item.location,

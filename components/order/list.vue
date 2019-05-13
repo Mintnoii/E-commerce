@@ -64,7 +64,6 @@
         async pay(item){
           // console.log(item)
           let res = await this.$axios.post('/order/updateOrder',{id: item.id})
-          console.log(res)
           this.$message({
             message: '订单支付成功',
             type: 'success'

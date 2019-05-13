@@ -105,6 +105,7 @@ export default {
           }
         })
         if(status === 200 && count > 0){
+          console.log(datas)
           // 通过map与后端数据进行映射
           let r = datas.filter(item=>item.photos.length).map(item=>{
             return {
