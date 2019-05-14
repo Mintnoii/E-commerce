@@ -13,6 +13,9 @@
         </template>
       </el-table-column>
       <el-table-column 
+        prop="user" 
+        label="会员ID" />
+      <el-table-column 
         prop="name" 
         label="商品名" />
       <el-table-column
@@ -24,15 +27,6 @@
       <el-table-column
         prop="status"
         label="状态" />
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button
-            size="small"
-            icon="el-icon-edit"
-            type="primary"
-            @click="handleEdit(scope.$index, scope.row)">备注</el-button>
-        </template>
-      </el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"
@@ -57,10 +51,12 @@ export default {
   },
   async mounted(){
     let {status, data: {orders}}  = await this.$axios.get('/manage/orders')
+    console.log(orders)
     this.tableData = orders.map( item =>{
       return {
         date: item.time,
         name: item.name,
+        user: item.user,
         count: item.count,
         total: item.total,
         status: item.status===1?'已支付':'未支付'

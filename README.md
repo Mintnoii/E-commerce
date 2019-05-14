@@ -57,8 +57,6 @@ Nuxt v2.3.4
 
 **1. 模板设计**
 
-![image-20190117111814632](./readmePic/image-20190117111814632.png)
-
 [Element ui 容器布局](http://element-cn.eleme.io/#/zh-CN/component/container)
 
 **2. 组件设计** 

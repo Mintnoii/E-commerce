@@ -14,7 +14,7 @@
     </el-row>
     <el-row class="m-title">
       <el-col :span="24">
-        <h3>商家团购及优惠</h3>
+        <h3>商家商品信息</h3>
       </el-col>
     </el-row>
     <!--在可以购买或者未登录的时候才显示这部分-->
@@ -73,6 +73,7 @@ export default {
         keyword,
         product,
         type,
+        // list即每个商家店铺内的商品列表（本地数据库暂时未添加该字段）
         list,
         login
       }

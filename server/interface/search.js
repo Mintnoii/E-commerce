@@ -86,9 +86,10 @@ router.get('/hotPlace', async (ctx) => {
 router.get('/resultsByKeywords', async (ctx) => {
   const {city, keyword} = ctx.query;
   let foodslist = ['甜点', '火锅', '拉面', '小吃快餐', '自助餐', "饮品"]
+  let spaslist = ['经济型', '舒适/三星', '高档/四星', '豪华/五星', '美睫美发','美容美体','机电维修']
   if(city === '烟台'|| city === '烟台市'){
     let results= await Yantai.find({})
-    if(keyword === '景点'||keyword === '旅游'){
+    if(keyword === '景点'){
       ctx.body = {
         code: 0,
         count: results[0].count,
@@ -112,8 +113,25 @@ router.get('/resultsByKeywords', async (ctx) => {
         count: results[0].count,
         datas: results[0].cinemas
       }
+    }else if(keyword === '旅游'){
+      ctx.body = {
+        code: 0,
+        count: results[0].count,
+        datas: results[0].spas.filter(item => {
+          return item.tag.includes("酒店")
+        })
+      }
     }else if(foodslist.includes(keyword)){
       let arr = results[0].foods.filter(item =>{
+        return item.tag.includes(keyword)
+      })
+      ctx.body = {
+        code: 0,
+        count: results[0].count,
+        datas: arr
+      }
+    }else if(spaslist.includes(keyword)){
+      let arr = results[0].spas.filter(item =>{
         return item.tag.includes(keyword)
       })
       ctx.body = {
@@ -157,7 +175,6 @@ router.get('/resultsByKeywords', async (ctx) => {
 
 router.get('/products', async (ctx) => {
   let keyword = ctx.query.keyword || '旅游'
-  console.log(keyword)
   // let city = ctx.query.city || '烟台'
   let results= await Yantai.find({})
   if(keyword){
@@ -167,6 +184,7 @@ router.get('/products', async (ctx) => {
     })
     ctx.body = {
       product: arr[0],
+      // more即每个商家的其他产品列表（因为目前每个商家只添加了一个产品，所以这里返回的数组只有一个元素）
       more: ctx.isAuthenticated() ? arr: [],
       login: ctx.isAuthenticated()
     }
@@ -181,8 +199,9 @@ router.get('/products', async (ctx) => {
     }
   } = await axios.get('http://cp-tools.cn/search/products', {
     params: {
-      keyword,
+      keyword, 
       city,
+      // sign 第三方云服务接口签名密钥
       sign
     }
   }) */

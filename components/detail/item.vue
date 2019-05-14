@@ -11,7 +11,7 @@
       <dd>
         <h4>{{ meta.name }}</h4>
         <p>
-          <span v-if="meta.biz_ext&&meta.biz_ext.ticket_ordering">剩余：{{ Number(meta.biz_ext.ticket_ordering) }}</span>
+          <!-- <span v-if="meta.biz_ext&&meta.biz_ext.ticket_ordering">剩余：{{ Number(meta.biz_ext.ticket_ordering) }}</span> -->
           <span v-if="meta.deadline">截止日期：{{ meta.deadline }}</span>
         </p>
         <p>
