@@ -5,7 +5,6 @@
         <nuxt-link to="/my">我的味心</nuxt-link>
         <dl>
           <dd><nuxt-link to="/order">我的订单</nuxt-link></dd>
-          <dd><nuxt-link to="/order">我的收藏</nuxt-link></dd>
           <dd><nuxt-link to="/order">账户设置</nuxt-link></dd>
         </dl>
       </li>

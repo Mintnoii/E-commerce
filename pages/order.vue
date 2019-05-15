@@ -13,14 +13,14 @@
             <i class="el-icon-arrow-right arrow"/>
           </dd>
         </dl>
-        <dl>
+        <!-- <dl>
           <dt>我的收藏</dt>
           <dd>
             <i class="el-icon-star-off"/>
             收藏列表
             <i class="el-icon-arrow-right arrow"/>
           </dd>
-        </dl>
+        </dl> -->
         <dl>
           <dt>个人信息</dt>
           <dd @click="currenttab='account'">

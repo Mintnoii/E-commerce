@@ -53,6 +53,7 @@ router.post('/addshop', async ctx =>{
   let address = ctx.request.body.address
   let photos = ctx.request.body.photos
   let tel = ctx.request.body.concat
+  let cost = ctx.request.body.cost
   let type = ctx.request.body.type
   let date = ctx.request.body.date
   let desc = ctx.request.body.desc
@@ -69,7 +70,7 @@ router.post('/addshop', async ctx =>{
         tel,
         biz_ext: {
           "rating": "4.5",
-          "cost": "100"
+          "cost": cost
         },
         photos,
         type,
@@ -91,7 +92,7 @@ router.post('/addshop', async ctx =>{
         tel,
         biz_ext: {
           "rating": "4.5",
-          "cost": "60"
+          "cost": cost
         },
         photos,
         type,
@@ -113,7 +114,7 @@ router.post('/addshop', async ctx =>{
         tel,
         biz_ext: {
           "rating": "4.5",
-          "cost": "54"
+          "cost": cost
         },
         photos,
         type,
@@ -136,7 +137,7 @@ router.post('/addshop', async ctx =>{
         photos,
         biz_ext: {
           "rating": "4.5",
-          "cost": "80"
+          "cost": cost
         },
         type,
         date,

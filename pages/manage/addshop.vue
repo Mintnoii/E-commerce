@@ -67,6 +67,17 @@
         <el-input v-model="form.tag"/>
       </el-form-item>
       <el-form-item 
+        label="优惠价格"
+        prop="cost"
+        :rules="[
+          { required: true, message: '请输入商品的价格', trigger: 'blur' }
+      ]">
+        <el-input 
+          type="Number"
+          pattern="[0-9]*"
+          v-model="form.cost"/>
+      </el-form-item>
+      <el-form-item 
         label="图片地址1"
         prop="pic1"
         :rules="[
@@ -108,6 +119,7 @@
           concat: '',
           pic1: '',
           pic2: '',
+          cost: 0,
           date: '',
           tag: '',
           type: '',
@@ -130,6 +142,7 @@
               address: this.form.address,
               concat: this.form.concat,
               date: this.form.date,
+              cost: this.form.cost,
               tag: [this.form.tag],
               type: this.form.type,
               desc: this.form.desc
