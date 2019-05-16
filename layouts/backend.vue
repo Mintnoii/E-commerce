@@ -105,7 +105,7 @@ export default {
     if (status === 200) {
       this.user=user
       this.role = role
-      if(this.role === "user"){
+      if(this.user==='' || this.role === "user"){
         window.location.href = '/login'
       }
     }

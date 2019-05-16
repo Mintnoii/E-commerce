@@ -47,7 +47,10 @@
         <div class="m-life-music"/>
       </el-col>
       <el-col :span="4">
-        <div class="m-life-coop"/>
+        <div 
+          @click="todo"
+          class="m-life-coop"
+        />
       </el-col>
       <el-col :span="6">
         <div class="m-life-downapp">
@@ -83,6 +86,14 @@ export default {
     } = await this.$axios.get("/users/getUser");
     if (status === 200) {
       this.user = user;
+    }
+  },
+  methods: {
+    todo() {
+      this.$notify.info({
+        title: '敬请期待',
+        message: '🎉商家入驻申请模块即将开放~'
+      });
     }
   }
 };

@@ -31,16 +31,19 @@
       style="width: 100%">
       <el-table-column 
         prop="id" 
-        label="ID" />
+        label="ID"
+        width="150" />
       <el-table-column 
         prop="name" 
         label="店铺名称" />
       <el-table-column
         prop="city"
-        label="所在城市" />
+        label="所在城市"
+        width="120" />
       <el-table-column
         prop="type"
-        label="店铺性质" />
+        label="店铺性质"
+        width="120" />
       <el-table-column
         prop="address"
         label="店铺地址" />
