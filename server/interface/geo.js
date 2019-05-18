@@ -143,10 +143,12 @@ router.get('/hotCity', async (ctx) => {
 })
 
 router.get('/menu', async (ctx) => {
+  // 请求本地数据库
   const result = await Menu.find()
   ctx.body = {
     menu: result[0].menu
   }
+  // 请求第三方云服务接口
   /*let {status, data: {
       menu
     }} = await axios.get(`http://cp-tools.cn/geo/menu?sign=${sign}`);

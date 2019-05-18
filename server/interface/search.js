@@ -51,7 +51,6 @@ router.get('/hotPlace', async (ctx) => {
       city,
       type: ctx.query.type || '丽人'
     }).limit(10)
-  //
     ctx.body = {
       code: 0,
       result: result.map(item => {
