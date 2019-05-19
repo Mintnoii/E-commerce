@@ -20,8 +20,12 @@ import manage from './interface/manage'
 const app = new Koa()
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
+
+// app.keys用来为Session做加密处理
 app.keys = ['mt', 'keyskeys']
 app.proxy = true
+
+// 使用Session中间件 new Redis()作为外部存储，即可连接到Redis数据库服务(默认配置)
 app.use(session({key: 'mt', prefix: 'mt:uid', store: new Redis()}))
 app.use(bodyParser({
   extendTypes:['json','form','text']
